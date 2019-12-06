@@ -8,7 +8,7 @@ inputs = {
   region      = "us-east-1"
   company     = "example"
   environment = "sandbox"
-  cidr        = "10.0.0.0/7"
+  cidr        = "10.0.0.0/16"
 
   availability_zones = [
     "us-east-1a",
