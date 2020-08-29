@@ -44,3 +44,10 @@ module "my-cluster" {
     }
   ]
 }
+
+module "kms" {
+  source  = "Cloud-42/kms/aws"
+  version = "1.2.0"
+  alias_name = "test1"
+  description = "test"
+}
