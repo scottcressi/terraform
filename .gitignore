@@ -1,2 +1,5 @@
-.terragrunt-cache
 .terraform
+.terraform.tfstate.lock.info
+terraform.tfstate
+kubeconfig_my-cluster
+terraform.tfstate.backup
