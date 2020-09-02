@@ -1,5 +1,6 @@
 module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
+  version = "2.48.0"
   name = "my-vpc"
   cidr = "10.0.0.0/16"
   azs             = ["us-east-1a", "us-east-1b", "us-east-1c"]
@@ -11,6 +12,7 @@ module "vpc" {
 
 module "my-cluster" {
   source          = "terraform-aws-modules/eks/aws"
+  version         = "12.2.0"
   cluster_name    = "my-cluster"
   cluster_version = "1.17"
   subnets         = module.vpc.public_subnets
