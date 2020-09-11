@@ -1,0 +1,4 @@
+resourcesToWatch:
+  deployment: true
+  pod: false
+replicaCount: 2

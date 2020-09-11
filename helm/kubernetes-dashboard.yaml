@@ -1,0 +1,14 @@
+rbac:
+  clusterReadOnlyRole: true
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: 'true'
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    nginx.ingress.kubernetes.io/whitelist-source-range: 0.0.0.0/0
+  paths:
+    - /
+    - /*
+replicaCount: 2
