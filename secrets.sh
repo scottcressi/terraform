@@ -14,6 +14,7 @@ vault kv put secret/helm/kubewatch slack_token=foo
 vault kv put secret/helm/prometheus-operator db_password=foo
 vault kv put secret/helm/external-dns secret_key=foo
 vault kv put secret/helm/docker-registry haSharedSecret=foo
+vault kv put secret/helm/grafana db_password=foo
 
 echo '''
 set the following in your /etc/hosts:

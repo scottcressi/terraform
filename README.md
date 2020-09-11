@@ -12,3 +12,7 @@ terraform init
 terraform plan
 terraform apply
 ```
+
+TODO:
+fix prometheus storage for local and ec2
+fix thanos
