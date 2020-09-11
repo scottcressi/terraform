@@ -1,0 +1,71 @@
+db:
+  user: "grafana"
+  password: ref+vault://secret/data/{{ .Environment.Values.vault_namespace }}/helm/grafana?address=https://vault-k8s.{{ .Environment.Name }}.{{ .Environment.Values.zone }}.com?proto=http#/db_password
+  name: grafana
+
+  #prometheusOperator:
+  #  cleanupCustomResourceBeforeInstall: true
+  #  cleanupCustomResource: false
+  #prometheus:
+  #  prometheusSpec:
+  #    thanos:
+  #      image: thanosio/thanos:v0.14.0
+  #
+  #
+  #
+  #
+  #    storageSpec:
+  #      volumeClaimTemplate:
+  #        spec:
+  #          storageClassName: gp2
+  #          accessModes: ["ReadWriteOnce"]
+  #          resources:
+  #            requests:
+  #              storage: 50Gi
+  #
+  #
+  #
+  #
+  #  ingress:
+  #    hosts:
+  #    - prometheus-k8s.{{ .Environment.Name }}.{{ .Environment.Values.zone }}.com
+  #    enabled: true
+  #    annotations:
+  #      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+  #      kubernetes.io/ingress.class: nginx
+  #      kubernetes.io/tls-acme: "true"
+  #      nginx.ingress.kubernetes.io/whitelist-source-range: 0.0.0.0/0
+  #      nginx.ingress.kubernetes.io/auth-type: basic
+  #      nginx.ingress.kubernetes.io/auth-secret: custom-nginx-basic-auth
+  #      nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required'
+  #
+  #grafana:
+  #  grafana.ini:
+  #    database:
+  #      type: mysql
+  #      user: grafana
+  #      name: grafana
+  #      host: mariadb.monitoring
+  #      password: ref+vault://secret/data/{{ .Environment.Values.vault_namespace }}/helm/grafana?address=https://vault-k8s.{{ .Environment.Name }}.{{ .Environment.Values.zone }}.com?proto=http#/db_password
+  #    server:
+  #      domain: grafana-k8s.{{ .Environment.Name }}.{{ .Environment.Values.zone }}.com
+  #  persistence:
+  #    enabled: true
+  #  enabled: {{ .Environment.Values.grafana_enabled }}
+  #  plugins:
+  #    - grafana-piechart-panel
+  #  ingress:
+  #    hosts:
+  #    - grafana-k8s.{{ .Environment.Name }}.{{ .Environment.Values.zone }}.com
+  #    enabled: true
+  #    annotations:
+  #      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+  #      kubernetes.io/ingress.class: nginx
+  #      kubernetes.io/tls-acme: "true"
+  #      nginx.ingress.kubernetes.io/whitelist-source-range: 0.0.0.0/0
+  #  additionalDataSources:
+  #  - name: influxdb-test
+  #    access: proxy
+  #    editable: false
+  #    type: influxdb
+  #    url: http://influxdb:8086

@@ -21,8 +21,14 @@ resource "helm_release" "node-problem-detector" {
 
   depends_on = [kubernetes_namespace.node-problem-detector]
 
-  values = [
-    "${file("node-problem-detector.yaml")}"
+  values = [<<EOF
+metrics:
+  serviceMonitor:
+    enabled: true
+    additionalLabels:
+      app: helm-helm-exporter
+      release: prometheus-operator
+EOF
   ]
 
 }

@@ -21,19 +21,16 @@ resource "helm_release" "kubewatch" {
 
   depends_on = [kubernetes_namespace.kubewatch]
 
-  values = [
-    "${file("kubewatch.yaml")}"
+  values = [<<EOF
+resourcesToWatch:
+  deployment: true
+  pod: false
+replicaCount: 2
+slack:
+  channel: kubewatch-${var.environment}
+  token: ${data.vault_generic_secret.slack-token.data["slack_token"]}
+EOF
   ]
-
-  set {
-    name  = "slack.channel"
-    value = "kubewatch-${var.environment}"
-  }
-
-  set {
-    name  = "slack.token"
-    value = data.vault_generic_secret.slack-token.data["slack_token"]
-  }
 
 }
 

@@ -21,29 +21,29 @@ resource "helm_release" "docker-registry" {
 
   depends_on = [kubernetes_namespace.docker-registry]
 
-  values = [
-    "${file("docker-registry.yaml")}"
+
+  values = [<<EOF
+ingress:
+  hosts:
+    - docker-registry-k8s.${var.environment}.${var.zone}.com
+  enabled: true
+  annotations:
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/whitelist-source-range: 0.0.0.0/0
+    nginx.ingress.kubernetes.io/proxy-body-size: 500m
+  path: /
+persistence:
+  enabled: true
+  deleteEnabled: true
+  secrets:
+    htpasswd: ${var.docker_registry_htpasswd}
+    haSharedSecret: ${data.vault_generic_secret.docker-registry-secrets.data["haSharedSecret"]}
+replicaCount: 1 # this must stay 1
+EOF
   ]
 
-  set {
-    name  = "ingress.hosts"
-    value = "{${local.docker-registry-hosts}}"
-  }
-
-  set {
-    name  = "secrets.htpasswd"
-    value = var.docker_registry_htpasswd
-  }
-
-  set {
-    name  = "secrets.haSharedSecret"
-    value = data.vault_generic_secret.docker-registry-secrets.data["haSharedSecret"]
-  }
-
-}
-
-locals {
-  docker-registry-hosts = "docker-registry-k8s.${var.environment}.${var.zone}.com"
 }
 
 data "vault_generic_secret" "docker-registry-secrets" {

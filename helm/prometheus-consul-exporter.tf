@@ -21,8 +21,9 @@ resource "helm_release" "prometheus-consul-exporter" {
 
   depends_on = [kubernetes_namespace.prometheus-consul-exporter]
 
-  values = [
-    "${file("prometheus-consul-exporter.yaml")}"
+  values = [<<EOF
+consulServer: consul-consul-server.consul:8500
+EOF
   ]
 
 }

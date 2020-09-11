@@ -21,17 +21,24 @@ resource "helm_release" "kubernetes-dashboard" {
 
   depends_on = [kubernetes_namespace.kubernetes-dashboard]
 
-  values = [
-    "${file("kubernetes-dashboard.yaml")}"
+  values = [<<EOF
+rbac:
+  clusterReadOnlyRole: true
+ingress:
+  hosts:
+    - kubernetes-dashboard-k8s.${var.environment}.${var.zone}.com
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: 'true'
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    nginx.ingress.kubernetes.io/whitelist-source-range: 0.0.0.0/0
+  paths:
+    - /
+    - /*
+replicaCount: 2
+EOF
   ]
 
-  set {
-    name  = "ingress.hosts"
-    value = "{${local.kubernetes-dashboard-hosts}}"
-  }
-
-}
-
-locals {
-  kubernetes-dashboard-hosts = "kubernetes-dashboard-k8s.${var.environment}.${var.zone}.com"
 }

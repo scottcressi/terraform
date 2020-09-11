@@ -1,6 +1,0 @@
-rbac:
-  create: true
-publishInternalServices: true
-replicas: 2
-metrics:
-  enabled: true

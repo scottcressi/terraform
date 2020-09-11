@@ -21,8 +21,15 @@ resource "helm_release" "helm-exporter" {
 
   depends_on = [kubernetes_namespace.helm-exporter]
 
-  values = [
-    "${file("helm-exporter.yaml")}"
+  values = [<<EOF
+serviceMonitor:
+  create: true
+  namespace: monitoring
+  additionalLabels:
+    app: helm-helm-exporter
+    release: prometheus-operator
+replicaCount: 2
+EOF
   ]
 
 }

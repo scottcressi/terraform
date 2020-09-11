@@ -1,6 +1,0 @@
-metrics:
-  serviceMonitor:
-    enabled: true
-    additionalLabels:
-      app: helm-helm-exporter
-      release: prometheus-operator

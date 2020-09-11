@@ -21,29 +21,21 @@ resource "helm_release" "external-dns" {
 
   depends_on = [kubernetes_namespace.external-dns]
 
-  values = [
-    "${file("external-dns.yaml")}"
+  values = [<<EOF
+rbac:
+  create: true
+publishInternalServices: true
+domainFilters: ["${var.environment}.${var.zone}.com"]
+replicas: 2
+metrics:
+  enabled: true
+aws:
+  credentials:
+    accessKey: ${var.accesskey}
+    secretKey: ${data.vault_generic_secret.external-dns-aws-credentials-secretkey.data["secret_key"]}
+EOF
   ]
 
-  set {
-    name  = "aws.credentials.accessKey"
-    value = var.accesskey
-  }
-
-  set {
-    name  = "aws.credentials.secretKey"
-    value = data.vault_generic_secret.external-dns-aws-credentials-secretkey.data["secret_key"]
-  }
-
-  set {
-    name  = "domainFilters"
-    value = "{${local.dns_zone_name}}"
-  }
-
-}
-
-locals {
-  dns_zone_name = "${var.environment}.${var.zone}.com"
 }
 
 data "vault_generic_secret" "external-dns-aws-credentials-secretkey" {
