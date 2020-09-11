@@ -1,0 +1,7 @@
+serviceMonitor:
+  create: true
+  namespace: monitoring
+  additionalLabels:
+    app: helm-helm-exporter
+    release: prometheus-operator
+replicaCount: 2
