@@ -38,7 +38,10 @@ resource "helm_release" "prometheus-operator" {
   version    = "9.3.1"
   namespace  = "monitoring"
 
-  depends_on = [kubernetes_namespace.monitoring]
+  depends_on = [
+                kubernetes_namespace.monitoring,
+                helm_release.mariadb,
+                ]
 
   values = [<<EOF
 prometheusOperator:

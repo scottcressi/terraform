@@ -11,9 +11,6 @@ resource "kubernetes_namespace" "helm-exporter" {
     name = "helm-exporter"
   }
 
-  depends_on = [
-    helm_release.prometheus-operator
-  ]
 }
 
 resource "helm_release" "helm-exporter" {
@@ -23,7 +20,10 @@ resource "helm_release" "helm-exporter" {
   version    = "0.6.0+61daf2c"
   namespace  = "helm-exporter"
 
-  depends_on = [kubernetes_namespace.helm-exporter]
+  depends_on = [
+                kubernetes_namespace.helm-exporter,
+                helm_release.prometheus-operator,
+                ]
 
   values = [<<EOF
 serviceMonitor:
