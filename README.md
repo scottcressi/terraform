@@ -4,10 +4,16 @@
 bash secrets.sh
 ```
 
+# download local charts
+1. run charts.sh
+```
+bash charts.sh
+```
+
 # run terraform
 1. run terraform in any sub directory
 ```
-cd eks
+cd helm
 terraform init
 terraform plan
 terraform apply
