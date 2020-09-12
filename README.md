@@ -10,6 +10,12 @@ bash secrets.sh
 bash charts.sh
 ```
 
+# setup local kubernetes cluster (optional)
+1. run kind
+```
+kind create cluster
+```
+
 # run terraform
 1. run terraform in any sub directory
 ```
