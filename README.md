@@ -16,3 +16,4 @@ terraform apply
 TODO:
 fix prometheus storage for local and ec2
 fix thanos
+fix logging to work with local and non local
