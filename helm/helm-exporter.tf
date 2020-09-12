@@ -10,6 +10,10 @@ resource "kubernetes_namespace" "helm-exporter" {
 
     name = "helm-exporter"
   }
+
+  depends_on = [
+    helm_release.prometheus-operator
+  ]
 }
 
 resource "helm_release" "helm-exporter" {
