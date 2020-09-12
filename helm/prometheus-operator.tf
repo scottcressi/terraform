@@ -114,7 +114,10 @@ resource "helm_release" "thanos" {
   version    = "2.3.2"
   namespace  = "monitoring"
 
-  depends_on = [kubernetes_namespace.monitoring]
+  depends_on = [
+                kubernetes_namespace.monitoring,
+                helm_release.prometheus-operator,
+                ]
 
   values = [<<EOF
 objstoreConfig: |-
