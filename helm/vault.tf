@@ -1,4 +1,5 @@
 resource "kubernetes_namespace" "vault" {
+  count      = var.environment != "local" ? 1 : 0
   metadata {
     annotations = {
       name = "example-annotation"
@@ -13,6 +14,7 @@ resource "kubernetes_namespace" "vault" {
 }
 
 resource "helm_release" "vault" {
+  count      = var.environment != "local" ? 1 : 0
   name       = "vault"
   repository = "https://helm.releases.hashicorp.com"
   chart      = "vault"
