@@ -41,8 +41,8 @@ server:
       seal "awskms" {
         kms_key_id = "alias/vault-${var.environment}"
         region     = "us-east-1"
-        access_key = "${var.vault_accesskey}"
-        secret_key = "${var.vault_secretkey}"
+        access_key = "aws_iam_access_key.vault.id"
+        secret_key = "aws_iam_access_key.vault.encrypted_secret"
       }
   ingress:
     hosts:
@@ -63,10 +63,35 @@ EOF
 
 }
 
-variable "vault_accesskey" {
-  type        = string
+resource "aws_iam_access_key" "vault" {
+  user    = aws_iam_user.vault.name
 }
 
-variable "vault_secretkey" {
-  type        = string
+resource "aws_iam_user" "vault" {
+  name = "loadbalancer"
+  path = "/system/"
+}
+
+resource "aws_iam_user_policy" "vault" {
+  name = "test"
+  user = aws_iam_user.vault.name
+
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "ec2:Describe*"
+      ],
+      "Effect": "Allow",
+      "Resource": "*"
+    }
+  ]
+}
+EOF
+}
+
+output "secret" {
+  value = aws_iam_access_key.vault.encrypted_secret
 }
