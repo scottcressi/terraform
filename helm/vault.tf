@@ -92,6 +92,6 @@ resource "aws_iam_user_policy" "vault" {
 EOF
 }
 
-output "secret" {
+output "vault_secret" {
   value = aws_iam_access_key.vault.encrypted_secret
 }

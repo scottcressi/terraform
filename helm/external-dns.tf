@@ -67,6 +67,6 @@ resource "aws_iam_user_policy" "external_dns" {
 EOF
 }
 
-output "secret" {
+output "external_dns_secret" {
   value = aws_iam_access_key.external_dns.encrypted_secret
 }
