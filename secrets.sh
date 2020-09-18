@@ -12,8 +12,6 @@ export VAULT_TOKEN=root
 
 vault kv put secret/helm/kubewatch slack_token=foo ; sleep .5
 vault kv put secret/helm/prometheus-operator db_password=foo ; sleep .5
-vault kv put secret/helm/external-dns secret_key=foo ; sleep .5
-vault kv put secret/helm/docker-registry haSharedSecret=foo ; sleep .5
 vault kv put secret/helm/grafana db_password=foo ; sleep .5
 vault kv put secret/helm/chartmuseum basic_auth_pass=foo ; sleep .5
 
