@@ -1,4 +1,3 @@
-accesskey = "foo"
 consul_bootstrapExpect = 1
 consul_replicas = 1
 docker_registry_htpasswd = "foo"

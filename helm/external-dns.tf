@@ -31,17 +31,42 @@ metrics:
   enabled: true
 aws:
   credentials:
-    accessKey: ${var.accesskey}
-    secretKey: ${data.vault_generic_secret.external-dns-aws-credentials-secretkey.data["secret_key"]}
+    accessKey: aws_iam_access_key.external_dns.id
+    secretKey: aws_iam_access_key.external_dns.encrypted_secret
 EOF
   ]
 
 }
 
-data "vault_generic_secret" "external-dns-aws-credentials-secretkey" {
-  path = "secret/helm/external-dns"
+resource "aws_iam_access_key" "external_dns" {
+  user    = aws_iam_user.external_dns.name
 }
 
-variable "accesskey" {
-  type        = string
+resource "aws_iam_user" "external_dns" {
+  name = "loadbalancer"
+  path = "/system/"
+}
+
+resource "aws_iam_user_policy" "external_dns" {
+  name = "test"
+  user = aws_iam_user.external_dns.name
+
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "ec2:Describe*"
+      ],
+      "Effect": "Allow",
+      "Resource": "*"
+    }
+  ]
+}
+EOF
+}
+
+output "secret" {
+  value = aws_iam_access_key.external_dns.encrypted_secret
 }
