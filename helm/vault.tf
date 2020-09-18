@@ -68,7 +68,7 @@ resource "aws_iam_access_key" "vault" {
 }
 
 resource "aws_iam_user" "vault" {
-  name = "loadbalancer"
+  name = "vault"
   path = "/system/"
 }
 

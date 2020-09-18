@@ -43,7 +43,7 @@ resource "aws_iam_access_key" "external_dns" {
 }
 
 resource "aws_iam_user" "external_dns" {
-  name = "loadbalancer"
+  name = "external-dns"
   path = "/system/"
 }
 
