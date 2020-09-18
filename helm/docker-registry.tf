@@ -37,19 +37,8 @@ ingress:
 persistence:
   enabled: true
   deleteEnabled: true
-  secrets:
-    htpasswd: ${var.docker_registry_htpasswd}
-    haSharedSecret: ${data.vault_generic_secret.docker-registry-secrets.data["haSharedSecret"]}
 replicaCount: 1 # this must stay 1
 EOF
   ]
 
-}
-
-data "vault_generic_secret" "docker-registry-secrets" {
-  path = "secret/helm/docker-registry"
-}
-
-variable "docker_registry_htpasswd" {
-  type        = string
 }
