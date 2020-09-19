@@ -1,0 +1,3 @@
+location = "local"
+zone = "example"
+environment = "local"
