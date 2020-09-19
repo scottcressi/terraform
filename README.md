@@ -19,13 +19,21 @@ kind create cluster
 # run terraform
 1. run terraform in any sub directory
 ```
-cd helm
+cd kubernetes
 terraform init
-terraform plan
-terraform apply
+terraform plan -var-file="tfvars.$ENV"
+terraform apply -var-file="tfvars.$ENV"
 ```
 
-TODO:
-fix prometheus storage for local and ec2
-fix thanos
-fix logging to work with local and non local
+# TODO:
+```
+fix prometheus storage block for local and ec2
+fix thanos or deprecate in favor of metricbeat
+fix logging to work out local vs non local for full testing
+fix subnet tags double apply
+fix vault key
+fix external dns key
+change dns auto validation to dns method
+fix nginx cert and annotations
+fix istio telemetry and policy
+```
