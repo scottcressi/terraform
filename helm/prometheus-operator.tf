@@ -84,7 +84,7 @@ grafana:
       domain: grafana-k8s.${var.environment}.${var.zone}.com
   persistence:
     enabled: true
-  enabled: ${var.grafana_enabled }
+  enabled: ${var.environment == "local" ? true : false || var.environment == "shared" ? true : false }
   plugins:
     - grafana-piechart-panel
   ingress:
@@ -162,10 +162,6 @@ minio:
 EOF
   ]
 
-}
-
-variable "grafana_enabled" {
-  type        = string
 }
 
 resource "random_password" "grafana-password" {
