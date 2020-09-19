@@ -1,6 +1,7 @@
 module "vpc" {
-  source = "terraform-aws-modules/vpc/aws"
-  version = "2.51.0"
+  create_vpc            = var.location == "aws" ? true : false
+  source                = "terraform-aws-modules/vpc/aws"
+  version               = "2.51.0"
   name                  = "my-vpc"
   cidr                  = "10.0.0.0/16"
   azs                   = ["us-east-1a", "us-east-1b", "us-east-1c"]
@@ -11,6 +12,7 @@ module "vpc" {
 }
 
 module "my-cluster" {
+  create_eks      = var.location == "aws" ? true : false
   source          = "terraform-aws-modules/eks/aws"
   version         = "12.2.0"
   cluster_name    = "my-cluster"
@@ -31,4 +33,21 @@ module "kms" {
   version       = "1.2.0"
   alias_name    = "test1"
   description   = "test"
+}
+
+data "aws_eks_cluster" "cluster" {
+  count = var.location == "aws" ? 1 : 0
+  name = module.my-cluster.cluster_id
+}
+
+data "aws_eks_cluster_auth" "cluster" {
+  count = var.location == "aws" ? 1 : 0
+  name = module.my-cluster.cluster_id
+}
+
+provider "kubernetes" {
+  host                   = element(concat(data.aws_eks_cluster.cluster[*].endpoint, list("")), 0)
+  cluster_ca_certificate = base64decode(element(concat(data.aws_eks_cluster.cluster[*].certificate_authority.0.data, list("")), 0))
+  token                  = element(concat(data.aws_eks_cluster_auth.cluster[*].token, list("")), 0)
+  load_config_file       = false
 }
