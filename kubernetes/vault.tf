@@ -95,3 +95,11 @@ EOF
 output "vault_secret" {
   value = aws_iam_access_key.vault.encrypted_secret
 }
+
+module "kms" {
+  depends_on = [helm_release.vault]
+  source        = "Cloud-42/kms/aws"
+  version       = "1.2.0"
+  alias_name    = "test1"
+  description   = "test"
+}
