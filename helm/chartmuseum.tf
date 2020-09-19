@@ -27,7 +27,7 @@ env:
     DISABLE_API: false
   secret:
     BASIC_AUTH_USER: admin
-    BASIC_AUTH_PASS: ${data.vault_generic_secret.chartmuseum-basic-auth-pass.data["basic_auth_pass"]}
+    BASIC_AUTH_PASS: ${random_password.chartmuseum-BASIC_AUTH_PASS.result}
 ingress:
   enabled: true
   annotations:
@@ -44,6 +44,8 @@ EOF
 
 }
 
-data "vault_generic_secret" "chartmuseum-basic-auth-pass" {
-  path = "secret/helm/chartmuseum"
+resource "random_password" "chartmuseum-BASIC_AUTH_PASS" {
+  length = 16
+  special = true
+  override_special = "_%@"
 }

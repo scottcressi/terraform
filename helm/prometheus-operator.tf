@@ -24,7 +24,7 @@ resource "helm_release" "mariadb" {
   values = [<<EOF
 db:
   user: "grafana"
-  password: ${data.vault_generic_secret.grafana_db_password.data["db_password"]}
+  password: ${random_password.grafana-password.result}
   name: grafana
 EOF
   ]
@@ -79,7 +79,7 @@ grafana:
       user: grafana
       name: grafana
       host: mariadb.monitoring
-      password: ${data.vault_generic_secret.grafana_db_password.data["db_password"]}
+      password: ${random_password.grafana-password.result}
     server:
       domain: grafana-k8s.${var.environment}.${var.zone}.com
   persistence:
@@ -164,10 +164,12 @@ EOF
 
 }
 
-data "vault_generic_secret" "grafana_db_password" {
-  path = "secret/helm/grafana"
-}
-
 variable "grafana_enabled" {
   type        = string
+}
+
+resource "random_password" "grafana-password" {
+  length = 16
+  special = true
+  override_special = "_%@"
 }
