@@ -25,17 +25,9 @@ ui:
   service:
     type: ClusterIP
 server:
-  bootstrapExpect: ${var.consul_bootstrapExpect}
-  replicas: ${var.consul_replicas}
+  bootstrapExpect: ${var.environment == "local" ? 1 : 3}
+  replicas: ${var.environment == "local" ? 1 : 3}
 EOF
   ]
 
-}
-
-variable "consul_bootstrapExpect" {
-  type        = string
-}
-
-variable "consul_replicas" {
-  type        = string
 }
