@@ -27,7 +27,6 @@ terraform apply -var-file="tfvars.$ENV"
 
 # TODO:
 ```
-fix prometheus storage block for local and ec2
 fix thanos or deprecate in favor of metricbeat
 fix logging to work out local vs non local for full testing
 fix subnet tags double apply
