@@ -41,8 +41,8 @@ server:
       seal "awskms" {
         kms_key_id = "alias/vault-${var.environment}"
         region     = "us-east-1"
-        access_key = "aws_iam_access_key.vault.id"
-        secret_key = "aws_iam_access_key.vault.encrypted_secret"
+        access_key = "${aws_iam_access_key.vault.id}"
+        secret_key = "${aws_iam_access_key.vault.secret}"
       }
   ingress:
     hosts:
@@ -69,7 +69,6 @@ resource "aws_iam_access_key" "vault" {
 
 resource "aws_iam_user" "vault" {
   name = "vault"
-  path = "/system/"
 }
 
 resource "aws_iam_user_policy" "vault" {
@@ -79,27 +78,25 @@ resource "aws_iam_user_policy" "vault" {
   policy = <<EOF
 {
   "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": [
-        "ec2:Describe*"
-      ],
-      "Effect": "Allow",
-      "Resource": "*"
-    }
-  ]
+  "Statement": {
+    "Effect": "Allow",
+    "Action": [
+      "kms:Encrypt",
+      "kms:Decrypt",
+      "kms:ReEncrypt*",
+      "kms:GenerateDataKey*",
+      "kms:DescribeKey"
+    ],
+    "Resource": "*"
+  }
 }
 EOF
-}
-
-output "vault_secret" {
-  value = aws_iam_access_key.vault.encrypted_secret
 }
 
 module "kms" {
   depends_on = [helm_release.vault]
   source        = "Cloud-42/kms/aws"
-  version       = "1.2.0"
-  alias_name    = "test1"
+  version       = "1.3.0"
+  alias_name    = "vault-${var.environment}"
   description   = "test"
 }
