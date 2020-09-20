@@ -31,7 +31,6 @@ fix prometheus storage block for local and ec2
 fix thanos or deprecate in favor of metricbeat
 fix logging to work out local vs non local for full testing
 fix subnet tags double apply
-fix vault key
 change dns auto validation to dns method
 fix nginx cert and annotations
 fix istio telemetry and policy
