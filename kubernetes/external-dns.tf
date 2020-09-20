@@ -31,8 +31,8 @@ metrics:
   enabled: true
 aws:
   credentials:
-    accessKey: aws_iam_access_key.external_dns.id
-    secretKey: aws_iam_access_key.external_dns.encrypted_secret
+    accessKey: ${aws_iam_access_key.external_dns.id}
+    secretKey: ${aws_iam_access_key.external_dns.secret}
 EOF
   ]
 
@@ -44,7 +44,6 @@ resource "aws_iam_access_key" "external_dns" {
 
 resource "aws_iam_user" "external_dns" {
   name = "external-dns"
-  path = "/system/"
 }
 
 resource "aws_iam_user_policy" "external_dns" {
@@ -56,17 +55,25 @@ resource "aws_iam_user_policy" "external_dns" {
   "Version": "2012-10-17",
   "Statement": [
     {
-      "Action": [
-        "ec2:Describe*"
-      ],
       "Effect": "Allow",
-      "Resource": "*"
+      "Action": [
+        "route53:ChangeResourceRecordSets"
+      ],
+      "Resource": [
+        "arn:aws:route53:::hostedzone/${var.environment}.${var.zone}.com"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "route53:ListHostedZones",
+        "route53:ListResourceRecordSets"
+      ],
+      "Resource": [
+        "*"
+      ]
     }
   ]
 }
 EOF
-}
-
-output "external_dns_secret" {
-  value = aws_iam_access_key.external_dns.encrypted_secret
 }
