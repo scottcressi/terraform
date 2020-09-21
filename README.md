@@ -28,7 +28,7 @@ terraform apply -var-file="tfvars.$ENV"
 # TODO:
 ```
 fix thanos or deprecate in favor of metricbeat
-fix logging to work out local vs non local for full testing
+fix logging to work out local vs non local for full testing, possibly minio
 fix nginx annotations
 fix istio telemetry and policy
 fix vault local and shared conditional
