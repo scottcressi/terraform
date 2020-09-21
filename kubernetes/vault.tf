@@ -102,7 +102,8 @@ module "kms" {
 }
 
 resource "random_string" "vault_alias" {
-  length = 16
-  special = true
-  override_special = "/@$"
+  length = 8
+  special = false
+  upper = false
+  number = false
 }
