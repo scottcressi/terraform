@@ -32,5 +32,4 @@ fix logging to work out local vs non local for full testing
 fix nginx annotations
 fix istio telemetry and policy
 fix vault local and shared conditional
-fix vault kms uniqueness
 ```
