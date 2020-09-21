@@ -1,3 +1,0 @@
-location = "aws"
-zone = "example"
-environment = "dev"
