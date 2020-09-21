@@ -48,7 +48,7 @@ controller:
       service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "http"
       service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "https"
       service.beta.kubernetes.io/aws-load-balancer-ssl-cert:
-        ${var.nginx-ingress-certarn["${var.environment}"]}
+        ${aws_acm_certificate_validation.example.certificate_arn}
 EOF
   ]
 
