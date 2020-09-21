@@ -39,7 +39,7 @@ server:
         address = "HOST_IP:8500"
       }
       seal "awskms" {
-        kms_key_id = "alias/vault-${var.environment}"
+        kms_key_id = "alias/vault-${var.environment}-${random_string.vault_alias.result}"
         region     = "us-east-1"
         access_key = "${aws_iam_access_key.vault.id}"
         secret_key = "${aws_iam_access_key.vault.secret}"
@@ -97,6 +97,12 @@ module "kms" {
   depends_on = [helm_release.vault]
   source        = "Cloud-42/kms/aws"
   version       = "1.3.0"
-  alias_name    = "vault-${var.environment}"
+  alias_name    = "vault-${var.environment}-${random_string.vault_alias.result}"
   description   = "test"
+}
+
+resource "random_string" "vault_alias" {
+  length = 16
+  special = true
+  override_special = "/@$"
 }

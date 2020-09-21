@@ -111,7 +111,7 @@ resource "helm_release" "thanos" {
   name       = "thanos"
   repository = "https://charts.bitnami.com/bitnami"
   chart      = "thanos"
-  version    = "2.3.4"
+  version    = "2.4.1"
   namespace  = "monitoring"
 
   depends_on = [
