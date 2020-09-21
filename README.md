@@ -29,7 +29,7 @@ terraform apply -var-file="tfvars.$ENV"
 ```
 fix thanos or deprecate in favor of metricbeat
 fix logging to work out local vs non local for full testing
-fix nginx cert and annotations
+fix nginx annotations
 fix istio telemetry and policy
 fix vault local and shared conditional
 fix vault kms uniqueness
