@@ -124,7 +124,7 @@ objstoreConfig: |-
   type: s3
   config:
     bucket: thanos
-    endpoint: thanos-minio.monitoring.svc.cluster.local:9000
+    endpoint: thanos-minio.monitoring:9000
     access_key: minio
     secret_key: minio123
     insecure: true
@@ -141,7 +141,7 @@ storegateway:
 ruler:
   enabled: true
   alertmanagers:
-    - http://prometheus-operator-alertmanager.monitoring.svc.cluster.local:9093
+    - http://prometheus-operator-alertmanager.monitoring:9093
   config: |-
     groups:
       - name: "metamonitoring"
