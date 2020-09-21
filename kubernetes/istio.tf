@@ -30,7 +30,7 @@ resource "helm_release" "istio" {
   version    = "1.5.8"
   namespace  = "istio-system"
 
-  depends_on = [kubernetes_namespace.istio-system,helm_release.istio-init]
+  depends_on = [kubernetes_namespace.istio-system, helm_release.istio-init]
 
   values = [<<EOF
 grafana:

@@ -39,9 +39,9 @@ resource "helm_release" "prometheus-operator" {
   namespace  = "monitoring"
 
   depends_on = [
-                kubernetes_namespace.monitoring,
-                helm_release.mariadb,
-                ]
+    kubernetes_namespace.monitoring,
+    helm_release.mariadb,
+  ]
 
   values = [<<EOF
 prometheusOperator:
@@ -84,7 +84,7 @@ grafana:
       domain: grafana-k8s.${var.environment}.${var.zone}.com
   persistence:
     enabled: true
-  enabled: ${var.location == "local" ? true : false || var.environment == "shared" ? true : false }
+  enabled: ${var.location == "local" ? true : false || var.environment == "shared" ? true : false}
   plugins:
     - grafana-piechart-panel
   ingress:
@@ -115,9 +115,9 @@ resource "helm_release" "thanos" {
   namespace  = "monitoring"
 
   depends_on = [
-                kubernetes_namespace.monitoring,
-                helm_release.prometheus-operator,
-                ]
+    kubernetes_namespace.monitoring,
+    helm_release.prometheus-operator,
+  ]
 
   values = [<<EOF
 objstoreConfig: |-
@@ -165,7 +165,7 @@ EOF
 }
 
 resource "random_password" "grafana-password" {
-  length = 16
-  special = true
+  length           = 16
+  special          = true
   override_special = "_%@"
 }

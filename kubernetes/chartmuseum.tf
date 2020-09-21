@@ -45,7 +45,7 @@ EOF
 }
 
 resource "random_password" "chartmuseum-BASIC_AUTH_PASS" {
-  length = 16
-  special = true
+  length           = 16
+  special          = true
   override_special = "_%@"
 }

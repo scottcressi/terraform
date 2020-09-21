@@ -1,5 +1,5 @@
 resource "kubernetes_namespace" "vault" {
-  count      = var.environment == "shared" ? 1 : 0
+  count = var.environment == "shared" ? 1 : 0
   metadata {
     annotations = {
       name = "example-annotation"
@@ -64,7 +64,7 @@ EOF
 }
 
 resource "aws_iam_access_key" "vault" {
-  user    = aws_iam_user.vault.name
+  user = aws_iam_user.vault.name
 }
 
 resource "aws_iam_user" "vault" {
@@ -94,16 +94,16 @@ EOF
 }
 
 module "kms" {
-  depends_on = [helm_release.vault]
-  source        = "Cloud-42/kms/aws"
-  version       = "1.3.0"
-  alias_name    = "vault-${var.environment}-${random_string.vault_alias.result}"
-  description   = "test"
+  depends_on  = [helm_release.vault]
+  source      = "Cloud-42/kms/aws"
+  version     = "1.3.0"
+  alias_name  = "vault-${var.environment}-${random_string.vault_alias.result}"
+  description = "test"
 }
 
 resource "random_string" "vault_alias" {
-  length = 8
+  length  = 8
   special = false
-  upper = false
-  number = false
+  upper   = false
+  number  = false
 }

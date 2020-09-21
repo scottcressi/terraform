@@ -1,5 +1,5 @@
 resource "kubernetes_namespace" "metallb" {
-  count      = var.location == "local" ? 1 : 0
+  count = var.location == "local" ? 1 : 0
   metadata {
     annotations = {
       name = "example-annotation"

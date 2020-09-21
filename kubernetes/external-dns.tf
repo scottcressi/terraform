@@ -39,7 +39,7 @@ EOF
 }
 
 resource "aws_iam_access_key" "external_dns" {
-  user    = aws_iam_user.external_dns.name
+  user = aws_iam_user.external_dns.name
 }
 
 resource "aws_iam_user" "external_dns" {

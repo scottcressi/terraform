@@ -55,9 +55,9 @@ EOF
 }
 
 resource "helm_release" "opendistro" {
-  name       = "opendistro"
-  chart      = "/var/tmp/opendistro-build/helm/opendistro-es/"
-  namespace  = "logging"
+  name      = "opendistro"
+  chart     = "/var/tmp/opendistro-build/helm/opendistro-es/"
+  namespace = "logging"
 
   depends_on = [kubernetes_namespace.logging]
 

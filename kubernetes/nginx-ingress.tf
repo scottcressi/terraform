@@ -20,9 +20,9 @@ resource "helm_release" "nginx-ingress" {
   namespace  = "nginx-ingress"
 
   depends_on = [
-                kubernetes_namespace.nginx-ingress,
-                helm_release.prometheus-operator,
-                ]
+    kubernetes_namespace.nginx-ingress,
+    helm_release.prometheus-operator,
+  ]
 
   values = [<<EOF
 controller:

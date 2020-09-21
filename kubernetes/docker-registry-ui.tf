@@ -13,9 +13,9 @@ resource "kubernetes_namespace" "docker-registry-ui" {
 }
 
 resource "helm_release" "docker-registry-ui" {
-  name       = "docker-registry-ui"
-  chart      = "/var/tmp/docker-registry-ui/examples/helm/docker-registry-ui"
-  namespace  = "docker-registry-ui"
+  name      = "docker-registry-ui"
+  chart     = "/var/tmp/docker-registry-ui/examples/helm/docker-registry-ui"
+  namespace = "docker-registry-ui"
 
   depends_on = [kubernetes_namespace.docker-registry-ui]
 

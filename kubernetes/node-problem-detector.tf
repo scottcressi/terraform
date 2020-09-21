@@ -20,9 +20,9 @@ resource "helm_release" "node-problem-detector" {
   namespace  = "node-problem-detector"
 
   depends_on = [
-                kubernetes_namespace.node-problem-detector,
-                helm_release.prometheus-operator,
-                ]
+    kubernetes_namespace.node-problem-detector,
+    helm_release.prometheus-operator,
+  ]
 
   values = [<<EOF
 metrics:

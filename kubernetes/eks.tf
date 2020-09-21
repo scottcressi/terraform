@@ -9,9 +9,9 @@ module "my-cluster" {
 
   worker_groups = [
     {
-      instance_type = "m5.xlarge"
-      asg_min_size  = 4
-      asg_max_size  = 6
+      instance_type        = "m5.xlarge"
+      asg_min_size         = 4
+      asg_max_size         = 6
       asg_desired_capacity = 5
     }
   ]
@@ -19,12 +19,12 @@ module "my-cluster" {
 
 data "aws_eks_cluster" "cluster" {
   count = var.location == "aws" ? 1 : 0
-  name = module.my-cluster.cluster_id
+  name  = module.my-cluster.cluster_id
 }
 
 data "aws_eks_cluster_auth" "cluster" {
   count = var.location == "aws" ? 1 : 0
-  name = module.my-cluster.cluster_id
+  name  = module.my-cluster.cluster_id
 }
 
 provider "kubernetes" {
