@@ -84,7 +84,7 @@ grafana:
       domain: grafana-k8s.${var.environment}.${var.zone}.com
   persistence:
     enabled: true
-  enabled: ${var.location == "local" ? true : false || var.environment == "shared" ? true : false}
+  enabled: ${var.environment == "local" ? true : false || var.environment == "shared" ? true : false}
   plugins:
     - grafana-piechart-panel
   ingress:

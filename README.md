@@ -21,8 +21,8 @@ kind create cluster
 ```
 cd kubernetes
 terraform init
-terraform plan -var-file="tfvars.$ENV"
-terraform apply -var-file="tfvars.$ENV"
+terraform plan
+terraform apply
 ```
 
 # TODO:
@@ -30,7 +30,6 @@ terraform apply -var-file="tfvars.$ENV"
 fix thanos or deprecate in favor of metricbeat
 fix logging to work out local vs non local for full testing, possibly minio
 fix istio telemetry and policy
-fix vault local and shared conditional
 fix kubeconfig
 fix prom variable storage spec
 ```

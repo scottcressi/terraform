@@ -1,5 +1,5 @@
 resource "kubernetes_namespace" "metallb" {
-  count = var.location == "local" ? 1 : 0
+  count = var.environment == "local" ? 1 : 0
   metadata {
     annotations = {
       name = "example-annotation"
@@ -14,7 +14,7 @@ resource "kubernetes_namespace" "metallb" {
 }
 
 resource "helm_release" "metallb" {
-  count      = var.location == "local" ? 1 : 0
+  count      = var.environment == "local" ? 1 : 0
   name       = "metallb"
   repository = "https://kubernetes-charts.storage.googleapis.com"
   chart      = "metallb"
