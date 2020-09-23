@@ -51,14 +51,14 @@ prometheus:
   prometheusSpec:
     thanos:
       image: thanosio/thanos:v0.14.0
-    storageSpec:
-      volumeClaimTemplate:
-        spec:
-          storageClassName: gp2
-          accessModes: ["ReadWriteOnce"]
-          resources:
-            requests:
-              storage: 50Gi
+#    storageSpec:
+#      volumeClaimTemplate:
+#        spec:
+#          storageClassName: gp2
+#          accessModes: ["ReadWriteOnce"]
+#          resources:
+#            requests:
+#              storage: 50Gi
   ingress:
     hosts:
     - prometheus-k8s.${var.environment}.${var.zone}.com
