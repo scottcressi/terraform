@@ -55,20 +55,21 @@ EOF
 }
 
 resource "helm_release" "opendistro" {
+  count      = var.environment == "shared" || var.environment == "local" ? 1 : 0
   name      = "opendistro"
   chart     = "/var/tmp/opendistro-build/helm/opendistro-es/"
   namespace = "logging"
 
   depends_on = [kubernetes_namespace.logging]
-
 }
 
-resource "helm_release" "logstash" {
-  name       = "logstash"
+resource "helm_release" "logstash-client" {
+  name       = "logstash-client"
   repository = "https://helm.elastic.co"
   chart      = "logstash"
   version    = "7.9.1"
   namespace  = "logging"
+  timeout    = 300
 
   depends_on = [kubernetes_namespace.logging]
 
@@ -76,11 +77,70 @@ resource "helm_release" "logstash" {
 logstashPipeline:
   logstash.conf: |
     input {
-            beats {
-              port => 5044
-            }
+      file {
+        path => "/tmp/test.log"
+      }
+      beats {
+        port => 5044
+      }
     }
     output {
+      stdout {}
+      s3 {
+        access_key_id => "YOURACCESSKEY"
+        secret_access_key => "YOURSECRETKEY"
+        endpoint => "http://minio.logging:9000"
+        bucket => "logstash"
+        additional_settings => { "force_path_style" => true }
+        validate_credentials_on_root_bucket => false
+        prefix => "logstash"
+        size_file => 2048
+        time_file => 5
+        }
+      }
+logstashConfig:
+  logstash.yml: |
+    http.host: "0.0.0.0"
+    log.level: "debug"
+service:
+  type: ClusterIP
+  ports:
+    - name: beats
+      port: 5044
+      protocol: TCP
+      targetPort: 5044
+EOF
+  ]
+
+}
+
+resource "helm_release" "logstash-server" {
+  count      = var.environment == "shared" || var.environment == "local" ? 1 : 0
+  name       = "logstash-server"
+  repository = "https://helm.elastic.co"
+  chart      = "logstash"
+  version    = "7.9.1"
+  namespace  = "logging"
+  timeout    = 300
+
+  depends_on = [kubernetes_namespace.logging]
+
+  values = [<<EOF
+logstashPipeline:
+  logstash.conf: |
+    input {
+      file {
+        path => "/tmp/test.log"
+      }
+      s3 {
+        access_key_id => "YOURACCESSKEY"
+        secret_access_key => "YOURSECRETKEY"
+        endpoint => "http://minio.logging:9000"
+        bucket => "logstash"
+        }
+    }
+    output {
+      stdout {}
       elasticsearch {
           hosts => ["https://opendistro-opendistro-es-client-service:9200"]
           ssl => true
@@ -93,6 +153,7 @@ logstashPipeline:
 logstashConfig:
   logstash.yml: |
     http.host: "0.0.0.0"
+    log.level: "debug"
 service:
   type: ClusterIP
   ports:
@@ -137,6 +198,22 @@ filebeatConfig:
       enabled: false
     output.logstash:
       hosts: ["logstash-logstash:5044"]
+EOF
+  ]
+
+}
+
+resource "helm_release" "minio" {
+  count      = var.environment == "shared" || var.environment == "local" ? 1 : 0
+  name       = "minio"
+  repository = "https://helm.min.io/"
+  chart      = "minio"
+  version    = "7.0.1"
+  namespace  = "logging"
+
+  depends_on = [kubernetes_namespace.logging]
+
+  values = [<<EOF
 EOF
   ]
 
