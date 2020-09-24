@@ -32,4 +32,8 @@ fix logging to work out local vs non local for full testing, possibly minio
 fix istio telemetry and policy
 fix kubeconfig
 fix prom variable storage spec
+add auditbeat
+add packetkbeat
+add auditbeat
+add heartbeat
 ```
