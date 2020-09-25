@@ -12,7 +12,7 @@ export VAULT_TOKEN=root
 
 vault kv put secret/helm/kubewatch slack_token=foo ; sleep .5
 
-echo '''
+echo """
 set the following in your /etc/hosts:
-127.0.0.1 vault-k8s.$ENV.$ZONE.com
-'''
+127.0.0.1 vault-k8s.ENV.ZONE.com
+"""
