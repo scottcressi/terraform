@@ -36,4 +36,5 @@ add auditbeat
 add packetkbeat
 add auditbeat
 add heartbeat
+deprecate helm stable
 ```
