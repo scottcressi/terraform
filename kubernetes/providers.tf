@@ -7,5 +7,5 @@ provider "vault" {
 }
 
 terraform {
-  required_version = "0.13.3"
+  required_version = "0.13.4"
 }
