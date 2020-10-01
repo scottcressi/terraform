@@ -1,3 +1,5 @@
+#!/usr/local/env bash
+
 if ! command -v docker ; then echo docker not installed ;  exit 0 ; fi
 if ! command -v vault ; then echo vault not installed ;  exit 0 ; fi
 
