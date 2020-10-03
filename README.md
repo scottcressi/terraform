@@ -1,3 +1,9 @@
+# run setup
+1. run setup.sh
+```
+bash setup.sh
+```
+
 # bootstrap vault with secrets
 1. run secrets.sh
 ```
@@ -25,18 +31,18 @@ terraform plan
 terraform apply
 ```
 
-# local testing with skaffold
+# local testing with skaffold (optional)
 git clone https://github.com/GoogleContainerTools/skaffold.git
 cd skaffold/examples/helm-deployment
 skaffold dev
 
-# create secrets - to generate run: htpasswd auth $SOME_USER
+# create secrets - to generate run: htpasswd auth $SOME_USER (optional)
 ```
 kubectl create secret generic -n monitoring   custom-nginx-basic-auth --from-file=./auth --dry-run -o yaml | kubectl apply -f -
 kubectl create secret generic -n istio-system custom-nginx-basic-auth --from-file=./auth --dry-run -o yaml | kubectl apply -f -
 ```
 
-# docker registry secret
+# docker registry secret (optional)
 ```
 docker run --entrypoint htpasswd registry:2 -Bbn user password > ./htpasswd
 ```
