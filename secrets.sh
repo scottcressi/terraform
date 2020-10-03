@@ -1,8 +1,5 @@
 #!/usr/local/env bash
 
-if ! command -v docker ; then echo docker not installed ;  exit 0 ; fi
-if ! command -v vault ; then echo vault not installed ;  exit 0 ; fi
-
 if ! pgrep vault > /dev/null ; then
     vault server -dev -dev-root-token-id="root" & disown
     echo waiting for initialization

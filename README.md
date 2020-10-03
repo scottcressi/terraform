@@ -25,6 +25,22 @@ terraform plan
 terraform apply
 ```
 
+# local testing with skaffold
+git clone https://github.com/GoogleContainerTools/skaffold.git
+cd skaffold/examples/helm-deployment
+skaffold dev
+
+# create secrets - to generate run: htpasswd auth $SOME_USER
+```
+kubectl create secret generic -n monitoring   custom-nginx-basic-auth --from-file=./auth --dry-run -o yaml | kubectl apply -f -
+kubectl create secret generic -n istio-system custom-nginx-basic-auth --from-file=./auth --dry-run -o yaml | kubectl apply -f -
+```
+
+# docker registry secret
+```
+docker run --entrypoint htpasswd registry:2 -Bbn user password > ./htpasswd
+```
+
 # TODO:
 ```
 fix thanos or deprecate in favor of metricbeat
@@ -37,4 +53,5 @@ add packetkbeat
 add auditbeat
 add heartbeat
 deprecate helm stable
+add grafana iac
 ```
