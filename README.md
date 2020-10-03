@@ -36,8 +36,9 @@ git clone https://github.com/GoogleContainerTools/skaffold.git
 cd skaffold/examples/helm-deployment
 skaffold dev
 
-# create secrets - to generate run: htpasswd auth $SOME_USER (optional)
+# create secrets (optional)
 ```
+htpasswd auth $SOME_USER
 kubectl create secret generic -n monitoring   custom-nginx-basic-auth --from-file=./auth --dry-run -o yaml | kubectl apply -f -
 kubectl create secret generic -n istio-system custom-nginx-basic-auth --from-file=./auth --dry-run -o yaml | kubectl apply -f -
 ```
