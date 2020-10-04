@@ -16,7 +16,7 @@ resource "helm_release" "mariadb" {
   name       = "mariadb"
   repository = "https://charts.bitnami.com/bitnami"
   chart      = "mariadb"
-  version    = "7.9.2"
+  version    = "7.10.4"
   namespace  = "monitoring"
 
   depends_on = [kubernetes_namespace.monitoring]
@@ -102,6 +102,24 @@ grafana:
     editable: false
     type: influxdb
     url: http://influxdb:8086
+alertmanager:
+  config:
+    global:
+      resolve_timeout: 5m
+      slack_api_url: ${data.vault_generic_secret.alertmanager-slack-token.data["slack_token"]}
+
+    route:
+      receiver: "null"
+      routes:
+      - match:
+          severity: critical
+        receiver: slack-notifications
+
+    receivers:
+    - name: "null"
+    - name: 'slack-notifications'
+      slack_configs:
+      - channel: '#alertmanager-${var.environment}'
 EOF
   ]
 
@@ -168,4 +186,8 @@ resource "random_password" "grafana-password" {
   length           = 16
   special          = true
   override_special = "_%@"
+}
+
+data "vault_generic_secret" "alertmanager-slack-token" {
+  path = "secret/helm/prometheus"
 }

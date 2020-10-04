@@ -10,6 +10,7 @@ if ! pgrep vault > /dev/null ; then
 fi
 
 vault kv put secret/helm/kubewatch slack_token=foo ; sleep .5
+vault kv put secret/helm/prometheus slack_token=foo ; sleep .5
 
 echo """
 set the following in your /etc/hosts:

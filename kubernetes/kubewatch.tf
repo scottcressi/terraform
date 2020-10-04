@@ -27,13 +27,13 @@ resourcesToWatch:
   pod: false
 replicaCount: 2
 slack:
-  channel: kubewatch-${var.environment}
-  token: ${data.vault_generic_secret.slack-token.data["slack_token"]}
+  channel: "#kubewatch-${var.environment}"
+  token: ${data.vault_generic_secret.kubewatch-slack-token.data["slack_token"]}
 EOF
   ]
 
 }
 
-data "vault_generic_secret" "slack-token" {
+data "vault_generic_secret" "kubewatch-slack-token" {
   path = "secret/helm/kubewatch"
 }
