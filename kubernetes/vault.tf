@@ -40,7 +40,7 @@ server:
       }
       seal "awskms" {
         kms_key_id = "alias/vault-${var.environment}-${random_string.vault_alias.result}"
-        region     = "us-east-1"
+        region     = var.region
         access_key = "${aws_iam_access_key.vault.id}"
         secret_key = "${aws_iam_access_key.vault.secret}"
       }
