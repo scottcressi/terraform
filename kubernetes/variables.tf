@@ -4,7 +4,7 @@ variable "location" {
 }
 
 variable "environment" {
-  description = "choices: local | dev | shared | $ENV"
+  description = "choices: local | shared | $ENV"
   type        = string
 }
 
@@ -14,7 +14,6 @@ variable "zone" {
 }
 
 variable "region" {
-  description = "ex. us-east-1 | us-west-2"
+  description = "ex. us-east-1"
   type        = string
-  default     = "us-east-1"
 }
