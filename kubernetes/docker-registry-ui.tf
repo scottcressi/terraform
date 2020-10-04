@@ -18,9 +18,9 @@ resource "helm_release" "docker-registry-ui" {
   namespace = "docker-registry-ui"
 
   depends_on = [
-                kubernetes_namespace.docker-registry-ui,
-                helm_release.docker-registry
-                ]
+    kubernetes_namespace.docker-registry-ui,
+    helm_release.docker-registry
+  ]
 
   values = [<<EOF
 registry:

@@ -55,7 +55,7 @@ EOF
 }
 
 resource "helm_release" "opendistro" {
-  count      = var.environment == "shared" || var.environment == "local" ? 1 : 0
+  count     = var.environment == "shared" || var.environment == "local" ? 1 : 0
   name      = "opendistro"
   chart     = "/var/tmp/opendistro-build/helm/opendistro-es/"
   namespace = "logging"
