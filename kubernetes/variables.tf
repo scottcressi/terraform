@@ -17,3 +17,8 @@ variable "region" {
   description = "ex. us-east-1"
   type        = string
 }
+
+variable "jenkinsgithubuser" {
+  description = "ex. example"
+  type        = string
+}

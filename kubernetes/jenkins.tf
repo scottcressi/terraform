@@ -69,7 +69,7 @@ master:
           <configVersion>2</configVersion>
           <userRemoteConfigs>
             <hudson.plugins.git.UserRemoteConfig>
-              <url>https://github.com/scottcressi/jenkins.git</url>
+              <url>https://github.com/${var.jenkinsgithubuser}/jenkins.git</url>
             </hudson.plugins.git.UserRemoteConfig>
           </userRemoteConfigs>
           <branches>
