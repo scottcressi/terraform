@@ -1,4 +1,3 @@
-if ! command -v docker ; then echo docker not installed ;  exit 0 ; fi
 if ! command -v helm ; then echo helm not installed ;  exit 0 ; fi
 if ! command -v kind ; then echo kind not installed ;  exit 0 ; fi
 if ! command -v kubectl ; then echo kubectl not installed ;  exit 0 ; fi
