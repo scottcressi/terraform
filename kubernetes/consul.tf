@@ -25,8 +25,8 @@ ui:
   service:
     type: ClusterIP
 server:
-  bootstrapExpect: ${var.environment == "local" ? 1 : 3}
-  replicas: ${var.environment == "local" ? 1 : 3}
+  bootstrapExpect: 3
+  replicas: 3
 EOF
   ]
 
