@@ -16,9 +16,9 @@ resource "kubernetes_namespace" "metallb" {
 resource "helm_release" "metallb" {
   count      = var.environment == "local" ? 1 : 0
   name       = "metallb"
-  repository = "https://kubernetes-charts.storage.googleapis.com"
+  repository = "https://charts.bitnami.com/bitnami"
   chart      = "metallb"
-  version    = "0.12.1"
+  version    = "0.1.24"
   namespace  = "metallb"
 
   depends_on = [kubernetes_namespace.metallb]

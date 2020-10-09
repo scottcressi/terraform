@@ -1,4 +1,4 @@
-resource "kubernetes_namespace" "nginx-ingress" {
+resource "kubernetes_namespace" "ingress-nginx" {
   metadata {
     annotations = {
       name = "example-annotation"
@@ -8,19 +8,19 @@ resource "kubernetes_namespace" "nginx-ingress" {
       mylabel = "label-value"
     }
 
-    name = "nginx-ingress"
+    name = "ingress-nginx"
   }
 }
 
-resource "helm_release" "nginx-ingress" {
-  name       = "nginx-ingress"
-  repository = "https://kubernetes-charts.storage.googleapis.com"
-  chart      = "nginx-ingress"
-  version    = "1.41.3"
-  namespace  = "nginx-ingress"
+resource "helm_release" "ingress-nginx" {
+  name       = "ingress-nginx"
+  repository = "https://kubernetes.github.io/ingress-nginx"
+  chart      = "ingress-nginx"
+  version    = "3.5.1"
+  namespace  = "ingress-nginx"
 
   depends_on = [
-    kubernetes_namespace.nginx-ingress,
+    kubernetes_namespace.ingress-nginx,
     helm_release.prometheus-operator,
   ]
 
@@ -33,7 +33,7 @@ controller:
     serviceMonitor:
       enabled: true
       additionalLabels:
-        app: nginx-ingress
+        app: ingress-nginx
         release: prometheus-operator
       namespace: monitoring
   stats:
