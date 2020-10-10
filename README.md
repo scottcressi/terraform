@@ -61,4 +61,5 @@ add auditbeat
 add heartbeat
 deprecate helm stable
 add grafana iac
+add vault transit token
 ```
