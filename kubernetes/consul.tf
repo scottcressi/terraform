@@ -16,7 +16,7 @@ resource "helm_release" "consul" {
   name       = "consul"
   repository = "https://helm.releases.hashicorp.com"
   chart      = "consul"
-  version    = "0.24.1"
+  version    = "0.25.0"
   namespace  = "consul"
 
   depends_on = [kubernetes_namespace.consul]
