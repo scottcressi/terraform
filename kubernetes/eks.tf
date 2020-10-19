@@ -3,7 +3,7 @@ module "my-cluster" {
   source          = "terraform-aws-modules/eks/aws"
   version         = "13.0.0"
   cluster_name    = "my-cluster"
-  cluster_version = "1.17"
+  cluster_version = "1.18"
   subnets         = module.vpc.public_subnets
   vpc_id          = module.vpc.vpc_id
 
