@@ -4,7 +4,7 @@
 git clone https://github.com/opendistro-for-elasticsearch/opendistro-build.git /var/tmp/opendistro-build
 cd /var/tmp/opendistro-build/helm/opendistro-es || exit
 git pull
-git checkout v1.10.1
+git checkout v1.11.0
 helm package .
 
 # docker-registry-ui
