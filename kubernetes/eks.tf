@@ -1,7 +1,7 @@
 module "my-cluster" {
   create_eks      = var.location == "aws" ? true : false
   source          = "terraform-aws-modules/eks/aws"
-  version         = "13.0.0"
+  version         = "13.1.0"
   cluster_name    = "my-cluster"
   cluster_version = "1.18"
   subnets         = module.vpc.public_subnets
