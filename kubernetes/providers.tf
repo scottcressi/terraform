@@ -34,7 +34,3 @@ provider "null" {
 provider "template" {
   version = "2.2.0"
 }
-
-terraform {
-  required_version = "0.13.5"
-}
