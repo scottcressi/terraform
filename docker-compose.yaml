@@ -1,0 +1,18 @@
+version: '3.7'
+
+services:
+
+  postgres:
+    image: postgres
+    hostname: postgres
+    environment:
+      - POSTGRES_PASSWORD
+      - POSTGRES_USER=terraform
+      - POSTGRES_DB=terraform
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres:/var/lib/postgresql/data
+
+volumes:
+  postgres:
