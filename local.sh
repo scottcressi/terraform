@@ -1,20 +1,19 @@
 #!/usr/bin/env bash
 
+if ! command -v terraform ; then echo terraform not installed ;  exit 0 ; fi
+if ! command -v vault ; then echo vault not installed ;  exit 0 ; fi
+if ! command -v docker ; then echo docker not installed ;  exit 0 ; fi
+if ! command -v docker-compose ; then echo docker-compose not installed ;  exit 0 ; fi
+if ! command -v psql ; then echo psql not installed ;  exit 0 ; fi
+
 POSTGRES_ADDRESS=localhost
 POSTGRES_USER=terraform
 
-echo enter postgres password to set
+echo
+echo enter postgres password to set:
 read -r POSTGRES_PASSWORD
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-
-check(){
-    if ! command -v terraform ; then echo terraform not installed ;  exit 0 ; fi
-    if ! command -v vault ; then echo vault not installed ;  exit 0 ; fi
-    if ! command -v docker ; then echo docker not installed ;  exit 0 ; fi
-    if ! command -v docker-compose ; then echo docker-compose not installed ;  exit 0 ; fi
-    if ! command -v psql ; then echo psql not installed ;  exit 0 ; fi
-}
 
 init_vault(){
     export VAULT_ADDR=http://localhost:8200
@@ -65,9 +64,8 @@ init_terraform(){
 }
 
 echo
-echo "##### check"
+echo "##### vault"
 echo
-check
 init_vault
 echo
 echo "##### backend"
