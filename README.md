@@ -1,25 +1,7 @@
 # run setup
-1. run setup.sh
+1. run local.sh
 ```
-bash setup.sh
-```
-
-# bootstrap vault with secrets
-1. run secrets.sh
-```
-bash secrets.sh
-```
-
-# download local charts
-1. run charts.sh
-```
-bash charts.sh
-```
-
-# setup local kubernetes cluster (optional)
-1. run kind
-```
-kind create cluster
+bash local.sh
 ```
 
 # run terraform
@@ -30,11 +12,6 @@ terraform init
 terraform plan
 terraform apply
 ```
-
-# local testing with skaffold (optional)
-git clone https://github.com/GoogleContainerTools/skaffold.git
-cd skaffold/examples/helm-deployment
-skaffold dev
 
 # create secrets (optional)
 ```
