@@ -4,7 +4,6 @@ if ! command -v terraform ; then echo terraform not installed ;  exit 0 ; fi
 if ! command -v vault ; then echo vault not installed ;  exit 0 ; fi
 if ! command -v docker ; then echo docker not installed ;  exit 0 ; fi
 if ! command -v docker-compose ; then echo docker-compose not installed ;  exit 0 ; fi
-if ! command -v psql ; then echo psql not installed ;  exit 0 ; fi
 
 POSTGRES_ADDRESS=localhost
 POSTGRES_USER=terraform
@@ -37,8 +36,6 @@ init_vault(){
 create_backend(){
     export POSTGRES_PASSWORD=$POSTGRES_PASSWORD
     docker-compose up -d
-    sleep 2
-    PGPASSWORD=$POSTGRES_PASSWORD psql --username  terraform --host localhost -c 'create database terraform_backend'
 }
 
 download_charts(){
