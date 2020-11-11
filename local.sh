@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 if ! command -v terraform ; then echo terraform not installed ;  exit 0 ; fi
-if ! command -v vault ; then echo vault not installed ;  exit 0 ; fi
 if ! command -v docker ; then echo docker not installed ;  exit 0 ; fi
 if ! command -v docker-compose ; then echo docker-compose not installed ;  exit 0 ; fi
 
@@ -15,17 +14,10 @@ read -r POSTGRES_PASSWORD
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 init_vault(){
-    export VAULT_ADDR=http://localhost:8200
-    export VAULT_TOKEN=root
-
-    if ! pgrep vault > /dev/null ; then
-    vault server -dev -dev-root-token-id="$VAULT_TOKEN" &
-    echo waiting for initialization
-    sleep 1
-    fi
-
-    vault kv put secret/helm/kubewatch slack_token=foo ; sleep .5
-    vault kv put secret/helm/prometheus slack_token=foo ; sleep .5
+    docker-compose up -d vault
+    sleep 2
+    docker exec -ti terraform_vault_1 sh -c export VAULT_TOKEN=root ; vault kv put -address http://127.0.0.1:8200 secret/helm/kubewatch slack_token=foo ; sleep 1
+    docker exec -ti terraform_vault_1 sh -c export VAULT_TOKEN=root ; vault kv put -address http://127.0.0.1:8200 secret/helm/prometheus slack_token=foo ; sleep 1
 
     echo """
     set the following in your /etc/hosts:
@@ -35,7 +27,7 @@ init_vault(){
 
 create_backend(){
     export POSTGRES_PASSWORD=$POSTGRES_PASSWORD
-    docker-compose up -d
+    docker-compose up -d postgres
 }
 
 download_charts(){

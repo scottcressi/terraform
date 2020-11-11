@@ -15,5 +15,14 @@ services:
       - postgres:/var/lib/postgresql/data
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
+  vault:
+    image: vault
+    hostname: vault
+    environment:
+      - -dev
+      - VAULT_DEV_ROOT_TOKEN_ID=root
+    ports:
+      - 8200:8200
+
 volumes:
   postgres:
