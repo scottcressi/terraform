@@ -13,7 +13,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 # create vault and postgres backends
 export POSTGRES_PASSWORD=$POSTGRES_PASSWORD
 docker-compose up -d
-sleep 2
+sleep 1
 
 # create secrets
 docker exec -ti terraform_vault_1 sh -c export VAULT_TOKEN=root ; vault kv put -address http://127.0.0.1:8200 secret/helm/kubewatch slack_token=foo ; sleep 1
