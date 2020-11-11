@@ -6,10 +6,7 @@ if ! command -v docker-compose ; then echo docker-compose not installed ;  exit 
 
 POSTGRES_ADDRESS=localhost
 POSTGRES_USER=terraform
-
-echo
-echo enter postgres password to set:
-read -r POSTGRES_PASSWORD
+POSTGRES_PASSWORD=terraform
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
