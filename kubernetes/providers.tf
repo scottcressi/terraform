@@ -5,7 +5,7 @@ provider "aws" {
 
 provider "vault" {
   address = "http://vault-k8s.${var.environment}.${var.zone}.com:8200"
-  version = "2.15.0"
+  version = "2.16.0"
 }
 
 provider "helm" {
