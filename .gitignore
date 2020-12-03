@@ -8,3 +8,4 @@ temp-unseal
 temp-wrap
 vault-init
 vault-transit
+.terraform.lock.hcl
