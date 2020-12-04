@@ -15,8 +15,10 @@ export POSTGRES_PASSWORD=$POSTGRES_PASSWORD
 docker-compose up -d
 
 # create secrets
-docker exec -ti terraform_vault_1 sh -c export VAULT_TOKEN=root ; vault kv put -address http://127.0.0.1:8200 secret/helm/kubewatch slack_token=foo ; sleep 1
-docker exec -ti terraform_vault_1 sh -c export VAULT_TOKEN=root ; vault kv put -address http://127.0.0.1:8200 secret/helm/prometheus slack_token=foo ; sleep 1
+docker exec -ti terraform_vault_1 sh -c export VAULT_TOKEN=root ; vault kv put -address http://127.0.0.1:8200 secret/helm/kubewatch slack_token=foo
+sleep 2
+docker exec -ti terraform_vault_1 sh -c export VAULT_TOKEN=root ; vault kv put -address http://127.0.0.1:8200 secret/helm/prometheus slack_token=foo
+sleep 2
 echo """
 set the following in your /etc/hosts:
 127.0.0.1 vault-k8s.ENV.ZONE.com
