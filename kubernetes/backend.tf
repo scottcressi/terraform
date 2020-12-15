@@ -15,7 +15,7 @@ terraform {
       version = "3.21.0"
     }
     vault = {
-      version = "2.16.0"
+      version = "2.17.0"
     }
     helm = {
       version = "1.3.2"
