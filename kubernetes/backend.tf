@@ -1,7 +1,7 @@
 terraform {
   required_version = "0.14.4"
 
-  backend "pg" {}
+  #backend "pg" {}
 
   #backend "s3" {
   #  bucket         = "374012539393-terraform-state"
