@@ -1,7 +1,6 @@
 .terraform
 kubeconfig_*
 *tfstate*
-terraform.tfvars
 audit.log
 recovery-key.txt
 temp-unseal
