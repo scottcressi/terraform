@@ -26,6 +26,8 @@ init_vault(){
     echo """
     set the following in your /etc/hosts:
     127.0.0.1 vault-k8s.ENV.ZONE.com
+
+    run: export VAULT_TOKEN=root
     """
 }
 
