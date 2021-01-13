@@ -1,4 +1,4 @@
-#!/usr/local/env bash
+#!/usr/local/env sh
 
 init(){
 export VAULT_ADDR=http://localhost:8200
@@ -17,7 +17,7 @@ vault unwrap "$WRAPPING_TOKEN" > temp-wrap
 
 transit(){
 export VAULT_TOKEN="$(grep 'token ' temp-wrap | awk '{print $2}')"
-vault server -config=config-transit.hcl & disown
+nohup vault server -config=config-transit.hcl </dev/null >/dev/null 2>&1 &
 sleep 1
 vault operator init -address=http://127.0.0.1:8100 -recovery-shares=1 -recovery-threshold=1 > recovery-key.txt
 }

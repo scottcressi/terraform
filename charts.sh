@@ -1,4 +1,4 @@
-#!/usr/local/env bash
+#!/usr/local/env sh
 
 # open distro
 git clone https://github.com/opendistro-for-elasticsearch/opendistro-build.git /var/tmp/opendistro  -build
