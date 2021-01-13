@@ -1,10 +1,19 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
-if ! command -v terraform ; then echo terraform not installed ;  exit 0 ; fi
-if ! command -v docker ; then echo docker not installed ;  exit 0 ; fi
-if ! command -v docker-compose ; then echo docker-compose not installed ;  exit 0 ; fi
+if ! command -v terraform > /dev/null ; then echo terraform not installed ;  exit 0 ; fi
+if ! command -v docker > /dev/null ; then echo docker not installed ;  exit 0 ; fi
+if ! command -v docker-compose > /dev/null ; then echo docker-compose not installed ;  exit 0 ; fi
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+if [ $# -eq 0 ] ; then
+    echo """
+options:
+init_vault
+init_postgres
+"""
+    exit 0
+fi
 
 init_vault(){
 # create secrets
