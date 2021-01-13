@@ -9,6 +9,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 if [ $# -eq 0 ] ; then
     echo """
     options:
+
     init_vault
     init_postgres
     """
