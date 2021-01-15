@@ -12,7 +12,7 @@ terraform {
 
   required_providers {
     aws = {
-      version = "3.22.0"
+      version = "3.24.1"
     }
     vault = {
       version = "2.17.0"
@@ -24,7 +24,7 @@ terraform {
       version = "1.13.3"
     }
     random = {
-      version = "3.0.0"
+      version = "3.0.1"
     }
     local = {
       version = "2.0.0"
