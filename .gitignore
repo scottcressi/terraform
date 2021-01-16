@@ -8,3 +8,4 @@ temp-wrap
 vault-init
 vault-transit
 .terraform.lock.hcl
+terraform.tfvars
