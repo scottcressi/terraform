@@ -16,3 +16,18 @@ output "public_ip" {
   description = "List of public IP addresses assigned to the instances, if applicable"
   value       = module.ec2_with_t3_unlimited.*.public_ip
 }
+
+module "vote_service_sg" {
+  source = "terraform-aws-modules/security-group/aws"
+
+  name        = "user-service"
+  description = "Security group for user-service with custom ports open within VPC, and PostgreSQL publicly open"
+  vpc_id      = module.vpc.vpc_id
+
+  ingress_with_cidr_blocks = [
+    {
+      rule        = "ssh-tcp"
+      cidr_blocks = "0.0.0.0/0"
+    },
+  ]
+}
