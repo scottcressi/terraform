@@ -1,4 +1,7 @@
 resource "kubernetes_namespace" "external-dns" {
+  depends_on = [
+    module.my-cluster.cluster_id
+  ]
   metadata {
     annotations = {
       name = "example-annotation"
@@ -25,7 +28,6 @@ resource "helm_release" "external-dns" {
 rbac:
   create: true
 publishInternalServices: true
-domainFilters: ["${var.environment}.${var.zone}.com"]
 replicas: 2
 metrics:
   enabled: true
