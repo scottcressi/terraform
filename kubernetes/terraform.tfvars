@@ -1,0 +1,5 @@
+environment = ""
+location = ""
+region = ""
+zone = ""
+jenkinsgithubuser = ""
