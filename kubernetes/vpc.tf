@@ -17,4 +17,12 @@ module "vpc" {
   public_subnet_tags = {
     "kubernetes.io/cluster/k8s.org.com" = "owned"
   }
+
+  customer_gateways = {
+    IP1 = {
+      bgp_asn    = 65112
+      ip_address = "1.2.3.4"
+    }
+  }
+
 }
