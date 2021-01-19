@@ -55,7 +55,7 @@ EOF
 }
 
 resource "aws_acm_certificate" "example" {
-  domain_name       = "*.${var.zone}.com"
+  domain_name       = "*.${var.environment}.${var.zone}.com"
   validation_method = "DNS"
 }
 
