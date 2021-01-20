@@ -32,7 +32,7 @@ daemonset:
         hosts: ["prometheus-operator-prometheus.monitoring:9090"]
         metrics_path: /metrics
       output.logstash:
-        hosts: 'logstash-logstash.logging:5044'
+        hosts: 'logstash-client-logstash:5044'
 deployment:
   metricbeatConfig:
     metricbeat.yml: |
@@ -48,7 +48,7 @@ deployment:
         period: 10s
         hosts: ["prometheus-operator-kube-state-metrics.monitoring:8080"]
       output.logstash:
-        hosts: 'logstash-logstash.logging:5044'
+        hosts: 'logstash-client-logstash:5044'
 EOF
   ]
 
@@ -197,7 +197,7 @@ filebeatConfig:
     output.file:
       enabled: false
     output.logstash:
-      hosts: ["logstash-logstash:5044"]
+      hosts: ["logstash-client-logstash:5044"]
 EOF
   ]
 
