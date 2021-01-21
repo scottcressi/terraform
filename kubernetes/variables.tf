@@ -1,10 +1,15 @@
 variable "location" {
-  description = "choices: local | aws"
+  description = "choices: local | aws | google | etc."
   type        = string
 }
 
 variable "environment" {
-  description = "choices: local | shared | $ENV"
+  description = <<EOT
+  choices: local | shared | dev | etc.
+  local - as many local as possible
+  shared - cluster for shared resources such as jenkins, elasticsearch, grafana, etc.
+  dev/etc - a non shared real environment cluster
+  EOT
   type        = string
 }
 
