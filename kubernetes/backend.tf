@@ -1,5 +1,5 @@
 terraform {
-  required_version = "0.14.4"
+  required_version = "0.14.5"
 
   #backend "pg" {}
 
@@ -15,7 +15,7 @@ terraform {
       version = "3.24.1"
     }
     vault = {
-      version = "2.17.0"
+      version = "2.18.0"
     }
     helm = {
       version = "2.0.1"
