@@ -1,10 +1,11 @@
-.terraform
-kubeconfig_*
 *tfstate*
+.terraform
+.terraform.lock.hcl
 audit.log
+kubeconfig_*
 recovery-key.txt
 temp-unseal
 temp-wrap
+terraform.tfvars
 vault-init
 vault-transit
-.terraform.lock.hcl
