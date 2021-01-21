@@ -1,5 +1,0 @@
-location = "aws"
-environment = "dev"
-zone = "scottcressi"
-region = "us-east-1"
-jenkinsgithubuser = "scottcressi"
