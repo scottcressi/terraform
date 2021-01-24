@@ -12,16 +12,16 @@ terraform {
 
   required_providers {
     aws = {
-      version = "3.24.1"
+      version = "3.25.0"
     }
     vault = {
       version = "2.18.0"
     }
     helm = {
-      version = "2.0.1"
+      version = "2.0.2"
     }
     kubernetes = {
-      version = "1.13.3"
+      version = "2.0.1"
     }
     random = {
       version = "3.0.1"
