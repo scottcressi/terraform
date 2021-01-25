@@ -1,4 +1,9 @@
 module "my-cluster" {
+
+  depends_on = [
+    module.vpc
+  ]
+
   create_eks      = var.location == "aws" ? true : false
   source          = "terraform-aws-modules/eks/aws"
   version         = "13.2.1"
