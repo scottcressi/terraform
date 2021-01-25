@@ -16,13 +16,14 @@ resource "kubernetes_namespace" "external-dns" {
 }
 
 resource "helm_release" "external-dns" {
+  depends_on = [
+    module.my-cluster.cluster_id
+  ]
   name       = "external-dns"
   repository = "https://charts.bitnami.com/bitnami"
   chart      = "external-dns"
   version    = "3.3.0"
   namespace  = "external-dns"
-
-  depends_on = [kubernetes_namespace.external-dns]
 
   values = [<<EOF
 rbac:

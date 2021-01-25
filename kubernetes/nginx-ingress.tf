@@ -1,4 +1,7 @@
 resource "kubernetes_namespace" "ingress-nginx" {
+  depends_on = [
+    module.my-cluster.cluster_id
+  ]
   metadata {
     annotations = {
       name = "example-annotation"
@@ -13,16 +16,14 @@ resource "kubernetes_namespace" "ingress-nginx" {
 }
 
 resource "helm_release" "ingress-nginx" {
+  depends_on = [
+    module.my-cluster.cluster_id
+  ]
   name       = "ingress-nginx"
   repository = "https://kubernetes.github.io/ingress-nginx"
   chart      = "ingress-nginx"
   version    = "3.5.1"
   namespace  = "ingress-nginx"
-
-  depends_on = [
-    kubernetes_namespace.ingress-nginx,
-    helm_release.prometheus-operator,
-  ]
 
   values = [<<EOF
 controller:
