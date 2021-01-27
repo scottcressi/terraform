@@ -1,7 +1,4 @@
 resource "kubernetes_namespace" "kubernetes-dashboard" {
-  depends_on = [
-    module.my-cluster.cluster_id
-  ]
   metadata {
     annotations = {
       name = "example-annotation"
