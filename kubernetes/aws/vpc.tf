@@ -1,5 +1,4 @@
 module "vpc" {
-  create_vpc         = var.location == "aws" ? true : false
   source             = "terraform-aws-modules/vpc/aws"
   version            = "2.66.0"
   name               = "my-vpc"

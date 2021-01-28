@@ -4,7 +4,6 @@ module "my-cluster" {
     module.vpc
   ]
 
-  create_eks      = var.location == "aws" ? true : false
   source          = "terraform-aws-modules/eks/aws"
   version         = "13.2.1"
   cluster_name    = local.cluster_name
@@ -23,12 +22,10 @@ module "my-cluster" {
 }
 
 data "aws_eks_cluster" "cluster" {
-  count = var.location == "aws" ? 1 : 0
   name  = module.my-cluster.cluster_id
 }
 
 data "aws_eks_cluster_auth" "cluster" {
-  count = var.location == "aws" ? 1 : 0
   name  = module.my-cluster.cluster_id
 }
 
