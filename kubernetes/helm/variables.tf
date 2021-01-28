@@ -1,8 +1,3 @@
-variable "location" {
-  description = "choices: local | aws | google | etc."
-  type        = string
-}
-
 variable "environment" {
   description = <<EOT
   choices: local | shared | dev | etc.
