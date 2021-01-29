@@ -5,7 +5,7 @@ module "my-cluster" {
   ]
 
   source          = "terraform-aws-modules/eks/aws"
-  version         = "13.2.1"
+  version         = "14.0.0"
   cluster_name    = local.cluster_name
   cluster_version = "1.18"
   subnets         = module.vpc.private_subnets
