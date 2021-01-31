@@ -7,9 +7,23 @@ module "ec2_with_t3_unlimited" {
   instance_type               = "t3.large"
   cpu_credits                 = "unlimited"
   subnet_id                   = module.vpc.public_subnets[0]
-  vpc_security_group_ids      = [module.vpc.default_security_group_id]
+  vpc_security_group_ids      = [module.vote_service_sg.this_security_group_id]
   associate_public_ip_address = true
   disable_api_termination     = false
+  user_data_base64            = base64encode(local.instance-userdata)
+  key_name                    = aws_key_pair.mykeypair.key_name
+}
+
+resource "aws_key_pair" "mykeypair" {
+  key_name   = "mykeypair"
+  public_key = file("~/.ssh/id_rsa.pub")
+}
+
+locals {
+  instance-userdata = <<EOF
+#!/bin/bash
+echo foo > /tmp/foo.txt
+EOF
 }
 
 output "public_ip" {
