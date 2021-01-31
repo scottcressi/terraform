@@ -1,2 +1,3 @@
 awscli
 azure-cli
+boto3
