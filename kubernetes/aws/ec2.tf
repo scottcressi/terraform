@@ -23,6 +23,7 @@ locals {
   instance-userdata = <<EOF
 #!/bin/bash
 echo foo > /tmp/foo.txt
+sudo yum install -y telnet
 EOF
 }
 
@@ -41,6 +42,16 @@ module "vote_service_sg" {
   ingress_with_cidr_blocks = [
     {
       rule        = "ssh-tcp"
+      cidr_blocks = "0.0.0.0/0"
+    },
+  ]
+
+  egress_with_cidr_blocks = [
+    {
+      from_port   = 1
+      to_port     = 65535
+      protocol    = "tcp"
+      #description = "Service name"
       cidr_blocks = "0.0.0.0/0"
     },
   ]
