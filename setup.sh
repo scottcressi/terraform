@@ -1,1 +1,1 @@
-pip install -r requirements.txt --quiet --quiet
+pip install -r requirements.txt
