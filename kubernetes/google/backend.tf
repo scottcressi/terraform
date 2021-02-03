@@ -10,4 +10,10 @@ terraform {
   #  #dynamodb_table = "terraform_state"
   #}
 
+  required_providers {
+    google = {
+      version = "3.55.0"
+    }
+  }
+
 }

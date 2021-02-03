@@ -63,7 +63,7 @@ module "vpc" {
 
 module "gke" {
   source                     = "terraform-google-modules/kubernetes-engine/google"
-  version                    = "12.3.0"
+  version                    = "13.0.0"
   project_id                 = "nodal-condition-204913"
   name                       = "gke-test-1"
   region                     = "us-west1"
