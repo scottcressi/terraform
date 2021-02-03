@@ -2,6 +2,7 @@
 .terraform
 .terraform.lock.hcl
 audit.log
+crash.log
 kubeconfig_*
 recovery-key.txt
 temp-unseal
