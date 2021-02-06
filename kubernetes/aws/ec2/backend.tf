@@ -1,5 +1,13 @@
+data "terraform_remote_state" "vpc" {
+  backend = "local"
+
+  config = {
+    path = "../network/terraform.tfstate"
+  }
+}
+
 terraform {
-  required_version = "0.14.5"
+  required_version = "0.14.6"
 
   #backend "pg" {}
 

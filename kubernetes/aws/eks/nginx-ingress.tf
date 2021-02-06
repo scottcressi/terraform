@@ -28,7 +28,7 @@ controller:
   metrics:
     enabled: true
     serviceMonitor:
-      enabled: true
+      enabled: false
       additionalLabels:
         app: ingress-nginx
         release: prometheus-operator

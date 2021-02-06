@@ -1,15 +1,11 @@
 module "my-cluster" {
 
-  depends_on = [
-    module.vpc
-  ]
-
   source          = "terraform-aws-modules/eks/aws"
-  version         = "14.0.0"
+  version         = "13.2.1"
   cluster_name    = local.cluster_name
   cluster_version = "1.18"
-  subnets         = module.vpc.private_subnets
-  vpc_id          = module.vpc.vpc_id
+  subnets         = data.terraform_remote_state.vpc.outputs.private_subnets
+  vpc_id          = data.terraform_remote_state.vpc.outputs.vpc_id
 
   worker_groups = [
     {
@@ -32,3 +28,12 @@ data "aws_eks_cluster_auth" "cluster" {
 locals {
   cluster_name = "my-cluster"
 }
+
+#resource "aws_globalaccelerator_endpoint_group" "example" {
+#  listener_arn = aws_globalaccelerator_listener.example.id
+#
+#  endpoint_configuration {
+#    endpoint_id = aws_lb.example.arn
+#    weight      = 100
+#  }
+#}
