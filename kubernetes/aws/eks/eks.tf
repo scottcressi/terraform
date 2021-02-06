@@ -9,10 +9,11 @@ module "my-cluster" {
 
   worker_groups = [
     {
-      instance_type        = "m5.xlarge"
+      instance_type        = "m5.large"
       asg_min_size         = 4
       asg_max_size         = 6
       asg_desired_capacity = 5
+
     }
   ]
 }
