@@ -13,6 +13,7 @@ resource "kubernetes_namespace" "monitoring" {
 }
 
 resource "helm_release" "mariadb" {
+  count      = var.environment == "shared" || var.environment == "local" ? 1 : 0
   name       = "mariadb"
   repository = "https://charts.bitnami.com/bitnami"
   chart      = "mariadb"
@@ -44,9 +45,11 @@ resource "helm_release" "kube-prometheus" {
   ]
 
   values = [<<EOF
+
 prometheusOperator:
   cleanupCustomResourceBeforeInstall: true
   cleanupCustomResource: false
+
 prometheus:
   prometheusSpec:
     thanos:
@@ -102,6 +105,7 @@ grafana:
     editable: false
     type: influxdb
     url: http://influxdb:8086
+
 alertmanager:
   config:
     global:
@@ -126,6 +130,7 @@ EOF
 }
 
 resource "helm_release" "thanos" {
+  count      = var.environment == "shared" || var.environment == "local" ? 1 : 0
   name       = "thanos"
   repository = "https://charts.bitnami.com/bitnami"
   chart      = "thanos"
@@ -138,6 +143,7 @@ resource "helm_release" "thanos" {
   ]
 
   values = [<<EOF
+
 objstoreConfig:
   type: S3
   config:
@@ -153,6 +159,7 @@ objstoreConfig:
       insecure_skip_verify: false
     sse_config:
       type: "SSE-S3"
+
 querier:
   dnsDiscovery:
     sidecarsService: prometheus-operated
