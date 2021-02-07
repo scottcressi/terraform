@@ -31,11 +31,11 @@ EOF
 
 }
 
-resource "helm_release" "prometheus-operator" {
-  name       = "prometheus-operator"
-  repository = "https://kubernetes-charts.storage.googleapis.com"
-  chart      = "prometheus-operator"
-  version    = "9.3.1"
+resource "helm_release" "kube-prometheus" {
+  name       = "kube-prometheus"
+  repository = "https://prometheus-community.github.io/helm-charts"
+  chart      = "kube-prometheus-stack"
+  version    = "13.5.0"
   namespace  = "monitoring"
 
   depends_on = [
@@ -129,54 +129,97 @@ resource "helm_release" "thanos" {
   name       = "thanos"
   repository = "https://charts.bitnami.com/bitnami"
   chart      = "thanos"
-  version    = "2.4.1"
+  version    = "3.8.1"
   namespace  = "monitoring"
 
   depends_on = [
     kubernetes_namespace.monitoring,
-    helm_release.prometheus-operator,
+    helm_release.kube-prometheus,
   ]
 
   values = [<<EOF
-objstoreConfig: |-
-  type: s3
+objstoreConfig:
+  type: S3
   config:
-    bucket: thanos
-    endpoint: thanos-minio.monitoring:9000
-    access_key: minio
-    secret_key: minio123
-    insecure: true
+    access_key: ${data.vault_generic_secret.thanos-access-key.data["thanos_access_key"]}
+    secret_key: ${data.vault_generic_secret.thanos-access-key.data["thanos_secret_key"]}
+    endpoint: s3.us-east-1.amazonaws.com
+    bucket: thanos-374012539393
+    insecure: false
+    signature_version2: false
+    http_config:
+      idle_conn_timeout: 10s
+      response_header_timeout: 15s
+      insecure_skip_verify: false
+    sse_config:
+      type: "SSE-S3"
 querier:
   dnsDiscovery:
-    sidecarsService: prometheus-operator-prometheus-thanos
+    sidecarsService: prometheus-operated
     sidecarsNamespace: monitoring
+  ingress:
+    enabled: true
+    hostname: querier-k8s.${var.environment}.${var.zone}.com
+    grpc:
+      enabled: true
+      hostname: storeapi-k8s.${var.environment}.${var.zone}.com
+      annotations:
+        nginx.ingress.kubernetes.io/backend-protocol: GRPC
+  rbac:
+    create: true
+  pspEnabled: true
+  pdb:
+    create: true
+  autoscaling:
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 5
+    targetCPU: 60
+    targetMemory: 60
+
 bucketweb:
   enabled: true
-compactor:
-  enabled: true
-storegateway:
-  enabled: true
-ruler:
-  enabled: true
-  alertmanagers:
-    - http://prometheus-operator-alertmanager.monitoring:9093
-  config: |-
-    groups:
-      - name: "metamonitoring"
-        rules:
-          - alert: "PrometheusDown"
-            expr: absent(up{prometheus="monitoring/prometheus-operator"})
+
+#compactor:
+#  enabled: true
+#  retentionResolutionRaw: 1y
+#  retentionResolution5m: 1y
+#  retentionResolution1h: 2y
+
+#storegateway:
+#  enabled: true
+#  pdb:
+#    create: true
+#  autoscaling:
+#    enabled: true
+#    minReplicas: 1
+#    maxReplicas: 5
+#    targetCPU: 60
+#    targetMemory: 60
+
+#ruler:
+#  enabled: true
+#  alertmanagers:
+#    - http://prometheus-operator-alertmanager.monitoring:9093
+#  config: |-
+#    groups:
+#      - name: "metamonitoring"
+#        rules:
+#          - alert: "PrometheusDown"
+#            expr: absent(up{prometheus="monitoring/prometheus-operator"})
+
 metrics:
   enabled: true
   serviceMonitor:
     enabled: true
-minio:
+    labels:
+      release: kube-prometheus-stack
+    interval: 30s
+    scrapeTimeout: 30s
+
+volumePermissions:
   enabled: true
-  accessKey:
-    password: "minio"
-  secretKey:
-    password: "minio123"
-  defaultBuckets: "thanos"
+
 EOF
   ]
 
@@ -189,5 +232,13 @@ resource "random_password" "grafana-password" {
 }
 
 data "vault_generic_secret" "alertmanager-slack-token" {
+  path = "secret/helm/prometheus"
+}
+
+data "vault_generic_secret" "thanos-access-key" {
+  path = "secret/helm/prometheus"
+}
+
+data "vault_generic_secret" "thanos-secret-key" {
   path = "secret/helm/prometheus"
 }
