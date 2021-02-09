@@ -1,4 +1,4 @@
 provider "google" {
-  project = "my-project-id"
+  project = var.project
   region  = "us-central1"
 }

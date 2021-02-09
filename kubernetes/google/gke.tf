@@ -2,7 +2,7 @@ module "vpc" {
   source  = "terraform-google-modules/network/google"
   version = "~> 3.0.1"
 
-  project_id   = "nodal-condition-204913"
+  project_id   = var.project
   network_name = "vpc-01"
   routing_mode = "GLOBAL"
 
@@ -64,7 +64,7 @@ module "vpc" {
 module "gke" {
   source                     = "terraform-google-modules/kubernetes-engine/google"
   version                    = "13.0.0"
-  project_id                 = "nodal-condition-204913"
+  project_id                 = var.project
   name                       = "gke-test-1"
   region                     = "us-west1"
   zones                      = ["us-west1-a", "us-west1-b", "us-west1-c"]
