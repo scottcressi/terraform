@@ -30,13 +30,11 @@ docker run --entrypoint htpasswd registry:2 -Bbn user password > ./htpasswd
 fix thanos or deprecate in favor of metricbeat
 fix logging to work out local vs non local for full testing, possibly minio
 fix istio telemetry and policy
-fix kubeconfig
 fix prom variable storage spec
 add auditbeat
 add packetkbeat
 add auditbeat
 add heartbeat
-deprecate helm stable
 add grafana iac
 add vault transit token
 create thanos bucket dynamically
