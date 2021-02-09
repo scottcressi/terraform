@@ -18,18 +18,6 @@ module "my-cluster" {
   ]
 }
 
-data "aws_eks_cluster" "cluster" {
-  name = module.my-cluster.cluster_id
-}
-
-data "aws_eks_cluster_auth" "cluster" {
-  name = module.my-cluster.cluster_id
-}
-
-locals {
-  cluster_name = "my-cluster"
-}
-
 #resource "aws_globalaccelerator_endpoint_group" "example" {
 #  listener_arn = aws_globalaccelerator_listener.example.id
 #
