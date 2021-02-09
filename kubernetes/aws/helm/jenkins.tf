@@ -14,9 +14,9 @@ resource "kubernetes_namespace" "jenkins" {
 
 resource "helm_release" "jenkins" {
   name       = "jenkins"
-  repository = "https://kubernetes-charts.storage.googleapis.com"
+  repository = "https://charts.jenkins.io"
   chart      = "jenkins"
-  version    = "1.27.0"
+  version    = "3.1.8"
   namespace  = "jenkins"
 
   depends_on = [kubernetes_namespace.jenkins]
@@ -24,7 +24,7 @@ resource "helm_release" "jenkins" {
   values = [<<EOF
 rbac:
   create: true
-master:
+controller:
   JenkinsUrl: http://jenkins-k8s.${var.environment}.${var.zone}.com
   HostName: jenkins-k8s.${var.environment}.${var.zone}.com
   adminPassword: foo

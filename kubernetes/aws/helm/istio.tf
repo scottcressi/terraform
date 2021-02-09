@@ -14,9 +14,9 @@ resource "kubernetes_namespace" "istio-system" {
 
 resource "helm_release" "istio-init" {
   name       = "istio-init"
-  repository = "https://storage.googleapis.com/istio-release/releases/1.5.8/charts/"
+  repository = "https://storage.googleapis.com/istio-release/releases/1.8.3/charts/"
   chart      = "istio-init"
-  version    = "1.5.8"
+  version    = "1.8.3"
   namespace  = "istio-system"
 
   depends_on = [kubernetes_namespace.istio-system]
@@ -25,9 +25,9 @@ resource "helm_release" "istio-init" {
 
 resource "helm_release" "istio" {
   name       = "istio"
-  repository = "https://storage.googleapis.com/istio-release/releases/1.5.8/charts/"
+  repository = "https://storage.googleapis.com/istio-release/releases/1.8./charts/"
   chart      = "istio"
-  version    = "1.5.8"
+  version    = "1.8.3"
   namespace  = "istio-system"
 
   depends_on = [kubernetes_namespace.istio-system, helm_release.istio-init]

@@ -14,9 +14,9 @@ resource "kubernetes_namespace" "docker-registry" {
 
 resource "helm_release" "docker-registry" {
   name       = "docker-registry"
-  repository = "https://kubernetes-charts.storage.googleapis.com"
+  repository = "https://helm.twun.io"
   chart      = "docker-registry"
-  version    = "1.9.4"
+  version    = "1.10.0"
   namespace  = "docker-registry"
 
   depends_on = [kubernetes_namespace.docker-registry]

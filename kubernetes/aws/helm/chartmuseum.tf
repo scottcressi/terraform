@@ -14,9 +14,9 @@ resource "kubernetes_namespace" "chartmuseum" {
 
 resource "helm_release" "chartmuseum" {
   name       = "chartmuseum"
-  repository = "https://kubernetes-charts.storage.googleapis.com"
+  repository = "https://chartmuseum.github.io/charts"
   chart      = "chartmuseum"
-  version    = "2.13.3"
+  version    = "2.14.2"
   namespace  = "chartmuseum"
 
   depends_on = [kubernetes_namespace.chartmuseum]
