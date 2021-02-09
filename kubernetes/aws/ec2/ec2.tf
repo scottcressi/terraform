@@ -19,14 +19,6 @@ resource "aws_key_pair" "mykeypair" {
   public_key = file("~/.ssh/id_rsa.pub")
 }
 
-locals {
-  instance-userdata = <<EOF
-#!/bin/bash
-echo foo > /tmp/foo.txt
-sudo yum install -y telnet
-EOF
-}
-
 module "vote_service_sg" {
   source = "terraform-aws-modules/security-group/aws"
 
