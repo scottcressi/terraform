@@ -237,15 +237,3 @@ resource "random_password" "grafana-password" {
   special          = true
   override_special = "_%@"
 }
-
-data "vault_generic_secret" "alertmanager-slack-token" {
-  path = "secret/helm/prometheus"
-}
-
-data "vault_generic_secret" "thanos-access-key" {
-  path = "secret/helm/prometheus"
-}
-
-data "vault_generic_secret" "thanos-secret-key" {
-  path = "secret/helm/prometheus"
-}

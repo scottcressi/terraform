@@ -33,7 +33,3 @@ EOF
   ]
 
 }
-
-data "vault_generic_secret" "kubewatch-slack-token" {
-  path = "secret/helm/kubewatch"
-}
