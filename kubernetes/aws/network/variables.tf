@@ -6,4 +6,9 @@ variable "environment" {
   dev/etc - a non shared real environment cluster
   EOT
   type        = string
+
+  validation {
+    condition     = length(var.environment) > 0
+    error_message = "The environment must not be blank"
+  }
 }
