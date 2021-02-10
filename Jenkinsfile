@@ -21,25 +21,11 @@ podTemplate(label: label, containers: [
     def shortGitCommit = "${gitCommit[0..10]}"
     def previousGitCommit = sh(script: "git rev-parse ${gitCommit}~", returnStdout: true)
 
-    //stage('git') {
-    //ansiColor('xterm'){
-    //  try {
-    //    container('git') {
-    //        git branch: 'master', credentialsId: 'github', url: 'git@github.com:scottcressi/terraform.git'
-    //    }
-    //  }
-    //  catch (exc) {
-    //    println "Failed to test - ${currentBuild.fullDisplayName}"
-    //    throw(exc)
-    //  }
-    //}}
-
     stage('init') {
     ansiColor('xterm'){
       try {
         container('terraform') {
           sh """
-            ls -la
             cd kubernetes/aws/network
             terraform init
             """
