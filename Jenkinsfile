@@ -22,11 +22,7 @@ podTemplate(label: label, containers: [
     def previousGitCommit = sh(script: "git rev-parse ${gitCommit}~", returnStdout: true)
 
     stage('init') {
-    when {
-        expression {
-            return env.BRANCH_NAME == 'master';
-        }
-    }
+    if (CURRENT_BRANCH == 'master') {
     ansiColor('xterm'){
       try {
         container('terraform') {
@@ -40,7 +36,7 @@ podTemplate(label: label, containers: [
         println "Failed to test - ${currentBuild.fullDisplayName}"
         throw(exc)
       }
-    }}
+    }}}
 
     stage('plan') {
     ansiColor('xterm'){
