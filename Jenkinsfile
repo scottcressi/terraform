@@ -22,7 +22,6 @@ podTemplate(label: label, containers: [
     def previousGitCommit = sh(script: "git rev-parse ${gitCommit}~", returnStdout: true)
 
     stage('init') {
-    if (env.gitBranch == 'master') {
     ansiColor('xterm'){
       try {
         container('terraform') {
@@ -36,7 +35,7 @@ podTemplate(label: label, containers: [
         println "Failed to test - ${currentBuild.fullDisplayName}"
         throw(exc)
       }
-    }}}
+    }}
 
     stage('plan') {
     ansiColor('xterm'){
@@ -57,6 +56,7 @@ podTemplate(label: label, containers: [
     }}
 
     stage('approval'){
+    if (env.gitBranch == 'master') {
     ansiColor('xterm'){
         script {
             def deploymentDelay = input id: 'Deploy',
@@ -69,9 +69,10 @@ podTemplate(label: label, containers: [
                 ]
             sleep time: deploymentDelay.toInteger(), unit: 'HOURS'
         }
-    }}
+    }}}
 
     stage('deploy') {
+    if (env.gitBranch == 'master') {
     ansiColor('xterm'){
       try {
         container('terraform') {
@@ -86,7 +87,7 @@ podTemplate(label: label, containers: [
         println "Failed to test - ${currentBuild.fullDisplayName}"
         throw(exc)
       }
-    }}
+    }}}
 
   }
 }
