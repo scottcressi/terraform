@@ -46,7 +46,6 @@ podTemplate(label: label,
           sh """
             cd kubernetes/aws/network
             terraform plan -var="environment=dev"
-            echo ${myRepo.GIT_BRANCH}
             """
         }
         }
@@ -58,7 +57,7 @@ podTemplate(label: label,
     }}
 
     stage('approval'){
-    if ('${env.GIT_BRANCH}' == 'master') {
+    if ('${myRepo.GIT_BRANCH' == 'origin/master') {
     ansiColor('xterm'){
         script {
             def deploymentDelay = input id: 'Deploy',
