@@ -1,7 +1,7 @@
 # run setup
-1. run local.sh
+1. run setup.sh
 ```
-bash local.sh
+bash setup.sh
 ```
 
 # run terraform
