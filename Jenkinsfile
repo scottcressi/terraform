@@ -44,7 +44,7 @@ podTemplate(label: label, containers: [
         withAWS(credentials: 'aws-credentials') {
           sh """
             cd kubernetes/aws/network
-            //terraform plan -var="environment=dev"
+            #terraform plan -var="environment=dev"
             terraform plan
             """
         }
