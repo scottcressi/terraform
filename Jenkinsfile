@@ -46,7 +46,7 @@ podTemplate(label: label,
           sh """
             cd kubernetes/aws/network
             terraform plan -var="environment=dev"
-            echo env.GIT_BRANCH
+            echo ${env.GIT_BRANCH}
             """
         }
         }
