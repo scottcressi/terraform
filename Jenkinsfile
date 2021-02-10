@@ -56,7 +56,7 @@ podTemplate(label: label, containers: [
     }}
 
     stage('approval'){
-    if (env.gitBranch == 'master') {
+    if ('${env.gitBranch}' == 'master') {
     ansiColor('xterm'){
         script {
             def deploymentDelay = input id: 'Deploy',
