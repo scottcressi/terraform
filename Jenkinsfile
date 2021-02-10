@@ -57,7 +57,7 @@ podTemplate(label: label,
     }}
 
     stage('approval'){
-    if ('${myRepo.GIT_BRANCH' == 'origin/master') {
+    if (${myRepo.GIT_BRANCH} == 'origin/master') {
     ansiColor('xterm'){
         script {
             def deploymentDelay = input id: 'Deploy',
