@@ -22,6 +22,11 @@ podTemplate(label: label, containers: [
     def previousGitCommit = sh(script: "git rev-parse ${gitCommit}~", returnStdout: true)
 
     stage('init') {
+    when {
+        expression {
+            return env.BRANCH_NAME == 'master';
+        }
+    }
     ansiColor('xterm'){
       try {
         container('terraform') {
