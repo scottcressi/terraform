@@ -10,13 +10,13 @@ if [ $# -eq 0 ] ; then
     echo """
     options:
 
-    init_vault
-    init_postgres
+    setup_vault
+    setup_postgres
     """
     exit 0
 fi
 
-init_vault(){
+setup_vault(){
     # create secrets
     docker-compose up -d vault
     sleep 2
@@ -32,7 +32,7 @@ init_vault(){
     """
 }
 
-init_postgres(){
+setup_postgres(){
     # create vault and postgres backends
     POSTGRES_ADDRESS=localhost
     POSTGRES_USER=terraform
@@ -45,6 +45,31 @@ init_postgres(){
     terraform init -backend-config="conn_str=postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@$POSTGRES_ADDRESS/terraform_backend?sslmode=disable" || echo "Done !"
     terraform workspace new default || if [ $? -eq 0 ]; then echo "Done !"; else echo "Workspace \"default\" was not created"; fi
     terraform init
+}
+
+setup_prereqs(){
+    pip install -r requirements.txt
+}
+
+setup_jenkins(){
+    kind create cluster
+    helm repo add jenkins https://charts.jenkins.io
+    helm install jenkins -n jenkins --create-namespace -f values.yaml jenkins/jenkins
+    sleep 10
+    kubectl exec --namespace jenkins -it svc/jenkins -c jenkins -- /bin/cat /run/secrets/chart-admin-password && echo
+}
+
+setup_charts(){
+    git clone https://github.com/opendistro-for-elasticsearch/opendistro-build.git /var/tmp/opendistro
+    cd /var/tmp/opendistro/helm/opendistro-es || exit
+    git pull
+    git checkout v1.12.0
+    helm package .
+
+    git clone https://github.com/Joxit/docker-registry-ui.git /var/tmp/docker-registry-ui
+    cd /var/tmp/docker-registry-ui || exit
+    git pull
+    git checkout 1.5.2
 }
 
 "$@"

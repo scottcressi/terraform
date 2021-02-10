@@ -1,0 +1,8 @@
+controller:
+  installPlugins:
+  - kubernetes
+  - workflow-aggregator
+  - git
+  - configuration-as-code
+  - ansicolor
+  - slack
