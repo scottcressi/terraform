@@ -24,6 +24,10 @@ module "vpc" {
     }
   }
 
+  tags = {
+    Environment = var.environment
+  }
+
   providers = {
     aws = us-east-1
   }
