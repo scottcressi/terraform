@@ -7,8 +7,3 @@ variable "environment" {
   EOT
   type        = string
 }
-
-variable "region" {
-  description = "ex. us-east-1"
-  type        = string
-}

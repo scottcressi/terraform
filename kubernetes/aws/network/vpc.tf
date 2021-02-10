@@ -24,4 +24,8 @@ module "vpc" {
     }
   }
 
+  providers = {
+    aws = us-east-1
+  }
+
 }
