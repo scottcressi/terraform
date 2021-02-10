@@ -9,6 +9,6 @@ variable "environment" {
 
   validation {
     condition     = length(var.environment) > 0
-    error_message = "The environment must not be blank"
+    error_message = "The environment must not be blank."
   }
 }
