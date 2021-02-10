@@ -6,3 +6,4 @@ controller:
   - configuration-as-code
   - ansicolor
   - slack
+  - pipeline-aws
