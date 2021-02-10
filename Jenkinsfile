@@ -1,9 +1,11 @@
 def label = "worker-${UUID.randomUUID().toString()}"
 
-podTemplate(label: label, containers: [
-  containerTemplate(name: 'terraform', image: 'hashicorp/terraform', command: 'cat', ttyEnabled: true)
-],
-)
+podTemplate(label: label,
+            containers: [
+                        containerTemplate(name: 'terraform', image: 'hashicorp/terraform', command: 'cat', ttyEnabled: true),
+                        ],
+            idleMinutes: 10
+            )
 
 {
 
@@ -45,6 +47,7 @@ podTemplate(label: label, containers: [
           sh """
             cd kubernetes/aws/network
             terraform plan -var="environment=dev"
+            echo env.GIT_BRANCH
             """
         }
         }
