@@ -74,7 +74,7 @@ podTemplate(label: label,
     }}}
 
     stage('deploy') {
-    if (env.gitBranch == 'master') {
+    if (myRepo.GIT_BRANCH == 'origin/master') {
     ansiColor('xterm'){
       try {
         container('terraform') {
