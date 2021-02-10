@@ -4,7 +4,6 @@ podTemplate(label: label,
             containers: [
                         containerTemplate(name: 'terraform', image: 'hashicorp/terraform', command: 'cat', ttyEnabled: true),
                         ],
-            idleMinutes: 10
             )
 
 {
