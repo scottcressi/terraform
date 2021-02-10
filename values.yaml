@@ -7,3 +7,4 @@ controller:
   - ansicolor
   - slack
   - pipeline-aws
+  - github
