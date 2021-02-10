@@ -25,7 +25,7 @@ module "vpc" {
   }
 
   tags = {
-    Environment = var.environment
+    environment = var.environment
   }
 
   providers = {
