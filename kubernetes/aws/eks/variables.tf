@@ -8,11 +8,6 @@ variable "environment" {
   type        = string
 }
 
-variable "zone" {
-  description = "ex. 'example' if you own example.com"
-  type        = string
-}
-
 variable "region" {
   description = "ex. us-east-1"
   type        = string
