@@ -33,9 +33,6 @@ controller:
       <permission>hudson.model.Hudson.Administer:admin</permission>
     </authorizationStrategy>
   tag: "2.263.4"
-  csrf:
-    defaultCrumbIssuer:
-      enabled: true
   serviceType: ClusterIP
   ingress:
     hostName: jenkins-k8s.${var.environment}.${var.zone}.com
@@ -59,9 +56,6 @@ controller:
   - slack
   - workflow-aggregator
   - workflow-job
-  overwriteJobs: true
-  overwriteConfig: true
-  numExecutors: 1
 EOF
   ]
 
