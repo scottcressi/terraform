@@ -58,9 +58,6 @@ setup_jenkins(){
     kind create cluster
     helm repo add jenkins https://charts.jenkins.io
     helm install jenkins -n jenkins --create-namespace -f values.yaml jenkins/jenkins
-    if [ "$(kubectl get pods -n jenkins | grep jenkins | grep -c Running)" -ge 1 ] ; then
-    kubectl exec --namespace jenkins -it svc/jenkins -c jenkins -- /bin/cat /run/secrets/chart-admin-password && echo
-    fi
 }
 
 setup_charts(){
