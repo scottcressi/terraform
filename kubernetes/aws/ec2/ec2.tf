@@ -6,7 +6,7 @@ module "ec2_with_t3_unlimited" {
   ami                         = "ami-00e87074e52e6c9f9" # centos
   instance_type               = "t3.small"
   cpu_credits                 = "unlimited"
-  subnet_id                   = data.terraform_remote_state.vpc.outputs.private_subnets[0]
+  subnet_id                   = data.terraform_remote_state.vpc.outputs.public_subnets[0]
   vpc_security_group_ids      = [module.vote_service_sg.this_security_group_id]
   associate_public_ip_address = true
   disable_api_termination     = false
