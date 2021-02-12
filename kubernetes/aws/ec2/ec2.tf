@@ -20,8 +20,8 @@ resource "aws_key_pair" "mykeypair" {
 }
 
 module "vote_service_sg" {
-  source = "terraform-aws-modules/security-group/aws"
-
+  source      = "terraform-aws-modules/security-group/aws"
+  version     = "3.17.0"
   name        = "user-service"
   description = "Security group for user-service with custom ports open within VPC, and PostgreSQL publicly open"
   vpc_id      = data.terraform_remote_state.vpc.outputs.vpc_id
@@ -35,9 +35,9 @@ module "vote_service_sg" {
 
   egress_with_cidr_blocks = [
     {
-      from_port   = 1
-      to_port     = 65535
-      protocol    = "tcp"
+      from_port = 1
+      to_port   = 65535
+      protocol  = "tcp"
       #description = "Service name"
       cidr_blocks = "0.0.0.0/0"
     },
