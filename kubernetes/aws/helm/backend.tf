@@ -20,7 +20,7 @@ terraform {
 
   required_providers {
     aws = {
-      version = "3.25.0"
+      version = "3.28.0"
     }
     vault = {
       version = "2.18.0"
