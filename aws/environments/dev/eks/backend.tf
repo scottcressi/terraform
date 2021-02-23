@@ -14,6 +14,9 @@ terraform {
     aws = {
       version = "3.28.0"
     }
+    kubernetes = {
+      version = "2.0.2"
+    }
     random = {
       version = "3.0.1"
     }
