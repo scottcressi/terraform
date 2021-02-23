@@ -63,13 +63,13 @@ setup_charts(){
     git clone https://github.com/opendistro-for-elasticsearch/opendistro-build.git /var/tmp/opendistro
     cd /var/tmp/opendistro/helm/opendistro-es || exit
     git pull
-    git checkout v1.12.0
+    git checkout v1.13.0
     helm package .
 
     git clone https://github.com/Joxit/docker-registry-ui.git /var/tmp/docker-registry-ui
     cd /var/tmp/docker-registry-ui || exit
     git pull
-    git checkout 1.5.2
+    git checkout 1.5.4
 }
 
 "$@"
