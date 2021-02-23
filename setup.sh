@@ -14,9 +14,15 @@ if [ $# -eq 0 ] ; then
     setup_postgres
     setup_prereqs
     setup_charts
+    setup_statebucket
     """
     exit 0
 fi
+
+setup_statebucket(){
+    UUID=$(cat /proc/sys/kernel/random/uuid)
+    aws s3 mb s3://terraform-state-"$UUID"
+}
 
 setup_vault(){
     # create secrets

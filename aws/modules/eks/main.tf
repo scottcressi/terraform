@@ -4,8 +4,8 @@ module "my-cluster" {
   version         = "13.2.1"
   cluster_name    = local.cluster_name
   cluster_version = "1.18"
-  subnets         = data.terraform_remote_state.vpc.outputs.private_subnets
-  vpc_id          = data.terraform_remote_state.vpc.outputs.vpc_id
+  subnets         = data.terraform_remote_state.network.outputs.private_subnets
+  vpc_id          = data.terraform_remote_state.network.outputs.vpc_id
 
   worker_groups = [
     {

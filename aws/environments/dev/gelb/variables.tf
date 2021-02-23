@@ -6,19 +6,14 @@ variable "environment" {
   dev/etc - a non shared real environment cluster
   EOT
   type        = string
-}
 
-variable "zone" {
-  description = "ex. 'example' if you own example.com"
-  type        = string
+  validation {
+    condition     = length(var.environment) > 0
+    error_message = "The environment must not be blank."
+  }
 }
 
 variable "region" {
   description = "ex. us-east-1"
-  type        = string
-}
-
-variable "jenkinsgithubuser" {
-  description = "ex. example"
   type        = string
 }
