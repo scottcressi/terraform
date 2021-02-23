@@ -7,7 +7,7 @@ bash setup.sh
 # run terraform
 1. run terraform in any sub directory
 ```
-cd kubernetes
+cd aws/environments/$ENV/$APP
 terraform init
 terraform plan
 terraform apply
