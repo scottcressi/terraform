@@ -13,7 +13,6 @@ if [ $# -eq 0 ] ; then
     setup_vault
     setup_postgres
     setup_prereqs
-    setup_jenkins
     setup_charts
     """
     exit 0
@@ -52,12 +51,6 @@ setup_postgres(){
 
 setup_prereqs(){
     pip install -r requirements.txt
-}
-
-setup_jenkins(){
-    kind create cluster
-    helm repo add jenkins https://charts.jenkins.io
-    helm install jenkins -n jenkins --create-namespace -f values.yaml jenkins/jenkins
 }
 
 setup_charts(){
