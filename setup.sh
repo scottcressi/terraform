@@ -75,8 +75,21 @@ setup_charts(){
 
 execute_terraform(){
     if [ -z "$1" ] ; then echo environment required ; exit 1 ; fi
-    echo env: "$1"
+    if [ -z "$2" ] ; then echo zone required ; exit 1 ; fi
     ENV="$1"
+    ZONE="$2"
+    echo env: "$ENV"
+    echo zone: "$ZONE"
+
+    vault=vault-k8s."$ENV"."$ZONE".com
+    status=$(nc -z "$vault" 8200 ; echo $?)
+    if [ "$status" != "0" ] ; then
+        echo "$vault" cannot be found
+        exit 1
+    else
+        echo vault found
+    fi
+
     array=( $(find aws/environments/"$ENV" -maxdepth 2 -mindepth 2 -type d) )
     for i in "${array[@]}" ; do
         cd "$i" || exit
