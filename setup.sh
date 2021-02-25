@@ -85,12 +85,12 @@ execute_terraform(){
     done
     for i in "${array[@]}" ; do
         cd "$i" || exit
-        terraform validate
+        terraform init
         cd "$DIR" || exit
     done
     for i in "${array[@]}" ; do
         cd "$i" || exit
-        terraform init
+        terraform validate
         cd "$DIR" || exit
     done
     for i in "${array[@]}" ; do
