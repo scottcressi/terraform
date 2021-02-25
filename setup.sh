@@ -89,7 +89,29 @@ execute_terraform(){
         exit 1
     fi
 
-    array=( $(find aws/environments/"$ENV" -maxdepth 2 -mindepth 2 -type d) )
+    array=( $(find aws/environments/"$ENV" -maxdepth 2 -mindepth 2 -type d | grep global) )
+    for i in "${array[@]}" ; do
+        cd "$i" || exit
+        terraform fmt
+        cd "$DIR" || exit
+    done
+    for i in "${array[@]}" ; do
+        cd "$i" || exit
+        terraform init
+        cd "$DIR" || exit
+    done
+    for i in "${array[@]}" ; do
+        cd "$i" || exit
+        terraform validate
+        cd "$DIR" || exit
+    done
+    for i in "${array[@]}" ; do
+        cd "$i" || exit
+        terraform plan
+        cd "$DIR" || exit
+    done
+
+    array=( $(find aws/environments/"$ENV" -maxdepth 2 -mindepth 2 -type d | grep -v global) )
     for i in "${array[@]}" ; do
         cd "$i" || exit
         terraform fmt
