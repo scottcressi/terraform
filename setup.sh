@@ -76,12 +76,24 @@ setup_charts(){
 execute_terraform(){
     echo env: "$1"
     ENV="$1"
-    for i in $(find aws/environments/"$ENV" -maxdepth 2 -mindepth 2 -type d) ; do
-        echo "$i"
+    array=( $(find aws/environments/"$ENV" -maxdepth 2 -mindepth 2 -type d) )
+    for i in "${array[@]}" ; do
         cd "$i" || exit
         terraform fmt
+        cd "$DIR" || exit
+    done
+    for i in "${array[@]}" ; do
+        cd "$i" || exit
         terraform validate
+        cd "$DIR" || exit
+    done
+    for i in "${array[@]}" ; do
+        cd "$i" || exit
         terraform init
+        cd "$DIR" || exit
+    done
+    for i in "${array[@]}" ; do
+        cd "$i" || exit
         terraform plan
         cd "$DIR" || exit
     done
