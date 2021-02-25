@@ -15,7 +15,7 @@ if [ $# -eq 0 ] ; then
     setup_prereqs
     setup_charts
     setup_statebucket
-    execute_terraform
+    execute_terraform   ex. bash setup.sh execute_terraform dev
     """
     exit 0
 fi
