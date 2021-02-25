@@ -15,6 +15,7 @@ if [ $# -eq 0 ] ; then
     setup_prereqs
     setup_charts
     setup_statebucket
+    execute_terraform
     """
     exit 0
 fi
@@ -70,6 +71,17 @@ setup_charts(){
     cd /var/tmp/docker-registry-ui || exit
     git pull
     git checkout 1.5.4
+}
+
+execute_terraform(){
+    for i in $(find aws/environments/dev -maxdepth 2 -mindepth 2 -type d) ; do
+        echo "$i"
+        cd "$i" || exit
+        terraform fmt
+        terraform init
+        terraform plan
+        cd "$DIR" || exit
+    done
 }
 
 "$@"
