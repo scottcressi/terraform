@@ -74,6 +74,7 @@ setup_charts(){
 }
 
 execute_terraform(){
+    if [ -z "$1" ] ; then echo environment required ; exit 1 ; fi
     echo env: "$1"
     ENV="$1"
     array=( $(find aws/environments/"$ENV" -maxdepth 2 -mindepth 2 -type d) )
