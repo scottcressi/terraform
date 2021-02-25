@@ -12,3 +12,12 @@ variable "region" {
   description = "ex. us-east-1"
   type        = string
 }
+
+variable "state_key" {
+  description = "some/s3/path/terraform.tfstate"
+  type        = string
+}
+variable "state_bucket" {
+  description = "somestatebucket"
+  type        = string
+}
