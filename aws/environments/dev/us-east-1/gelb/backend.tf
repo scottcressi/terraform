@@ -4,9 +4,9 @@ terraform {
   #backend "pg" {}
 
   backend "s3" {
-    bucket         = "terraform-state-7ac65cd8-518c-40db-99a7-8948133592ca"
-    key            = "dev/gelb/terraform.tfstate"
-    region         = "us-east-1"
+    bucket = "terraform-state-7ac65cd8-518c-40db-99a7-8948133592ca"
+    key    = "dev/us-east-1/gelb/terraform.tfstate"
+    region = "us-east-1"
     #dynamodb_table = "terraform_state"
   }
 

@@ -11,14 +11,11 @@ variable "environment" {
     condition     = length(var.environment) > 0
     error_message = "The environment must not be blank."
   }
+  default = "dev"
 }
 
 variable "region" {
   description = "ex. us-east-1"
   type        = string
-}
-
-variable "zone" {
-  description = "ex. 'example' if you own example.com"
-  type        = string
+  default     = "us-east-1"
 }

@@ -4,21 +4,15 @@ terraform {
   #backend "pg" {}
 
   backend "s3" {
-    bucket         = "terraform-state-7ac65cd8-518c-40db-99a7-8948133592ca"
-    key            = "dev/helm/terraform.tfstate"
-    region         = "us-east-1"
+    bucket = "terraform-state-7ac65cd8-518c-40db-99a7-8948133592ca"
+    key    = "dev/us-east-1/ec2/terraform.tfstate"
+    region = "us-east-1"
     #dynamodb_table = "terraform_state"
   }
 
   required_providers {
     aws = {
       version = "3.28.0"
-    }
-    helm = {
-      version = "2.0.2"
-    }
-    kubernetes = {
-      version = "2.0.2"
     }
     random = {
       version = "3.0.1"
