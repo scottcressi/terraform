@@ -80,14 +80,13 @@ execute_terraform(){
     ZONE="$2"
     echo env: "$ENV"
     echo zone: "$ZONE"
+    echo
 
     vault=vault-k8s."$ENV"."$ZONE".com
     status=$(nc -z "$vault" 8200 ; echo $?)
     if [ "$status" != "0" ] ; then
         echo "$vault" cannot be found
         exit 1
-    else
-        echo vault found
     fi
 
     array=( $(find aws/environments/"$ENV" -maxdepth 2 -mindepth 2 -type d) )
