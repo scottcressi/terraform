@@ -1,6 +1,6 @@
 module "ec2_with_t3_unlimited" {
   source                      = "terraform-aws-modules/ec2-instance/aws"
-  version                     = "2.16.0"
+  version                     = "2.17.0"
   instance_count              = 1
   name                        = "example-t3-unlimited"
   ami                         = "ami-00e87074e52e6c9f9" # centos
