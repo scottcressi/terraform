@@ -29,14 +29,14 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: prometheus
-  namespace: prometheus
+  namespace: default
   finalizers:
   - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    server: https://kubernetes.argocd.svc
+    server: https://kubernetes.default.svc
     namespace: prometheus
-  project: prometheus
+  project: default
   source:
     chart: prometheus
     helm:

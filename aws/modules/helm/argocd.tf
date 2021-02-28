@@ -17,7 +17,7 @@ resource "helm_release" "argocd" {
   repository = "https://argoproj.github.io/argo-helm"
   chart      = "argo-cd"
   version    = "1.8.4"
-  namespace  = "argocd"
+  namespace  = "default"
 
   depends_on = [kubernetes_namespace.argocd]
   values = [<<EOF
