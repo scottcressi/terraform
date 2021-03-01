@@ -97,7 +97,7 @@ execute_terraform(){
     done
     for i in "${array[@]}" ; do
         cd "$i" || exit
-        terraform init
+        terraform init -upgrade
         cd "$DIR" || exit
     done
     for i in "${array[@]}" ; do

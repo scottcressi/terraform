@@ -12,7 +12,7 @@ terraform {
 
   required_providers {
     aws = {
-      version = "3.28.0"
+      version = "3.30.0"
     }
     helm = {
       version = "2.0.2"
