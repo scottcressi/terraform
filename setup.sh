@@ -26,10 +26,11 @@ setup_statebucket(){
 }
 
 setup_vault(){
-    # create secrets
+    if ! pgrep vault > /dev/null ; then
     docker-compose up -d vault
+    fi
     sleep 2
-    docker exec -ti terraform_vault_1 sh -c "export VAULT_TOKEN=root \
+    docker exec -ti vault sh -c "export VAULT_TOKEN=root \
     ; vault kv put -address http://127.0.0.1:8200 secret/helm/kubewatch slack_token=foo \
     ; vault kv put -address http://127.0.0.1:8200 secret/helm/prometheus slack_token=foo \
     "
