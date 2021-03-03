@@ -10,3 +10,4 @@ temp-wrap
 terraform.tfvars
 vault-init
 vault-transit
+secrets

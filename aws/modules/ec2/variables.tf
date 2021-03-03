@@ -21,3 +21,8 @@ variable "state_bucket" {
   description = "somestatebucket"
   type        = string
 }
+
+variable "zone" {
+  description = "ex. 'example' if you own example.com"
+  type        = string
+}

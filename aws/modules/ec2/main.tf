@@ -4,7 +4,7 @@ module "ec2_with_t3_unlimited" {
   instance_count              = 1
   name                        = "example-t3-unlimited"
   ami                         = "ami-00e87074e52e6c9f9" # centos
-  instance_type               = "t3.small"
+  instance_type               = "t3.micro"
   cpu_credits                 = "unlimited"
   subnet_id                   = data.terraform_remote_state.network.outputs.public_subnets[0]
   vpc_security_group_ids      = [module.vote_service_sg.this_security_group_id]
@@ -16,7 +16,26 @@ module "ec2_with_t3_unlimited" {
 
 resource "aws_key_pair" "mykeypair" {
   key_name   = "mykeypair"
-  public_key = file("~/.ssh/id_rsa.pub")
+  public_key = file(module.ssh_key_pair.public_key_filename)
+}
+
+resource "vault_generic_secret" "some_ssh_key" {
+  path = "secret/ssh_keys/some_ssh_key"
+  data_json = jsonencode({
+    "key" : module.ssh_key_pair.private_key
+  })
+}
+
+module "ssh_key_pair" {
+  source                = "cloudposse/key-pair/aws"
+  version               = "0.18.0"
+  namespace             = "eg"
+  stage                 = "prod"
+  name                  = "app"
+  ssh_public_key_path   = "secrets"
+  generate_ssh_key      = "true"
+  private_key_extension = ".pem"
+  public_key_extension  = ".pub"
 }
 
 module "vote_service_sg" {
@@ -28,24 +47,24 @@ module "vote_service_sg" {
 
   ingress_with_cidr_blocks = [
     {
-      from_port = 22
-      to_port   = 22
-      protocol  = "tcp"
+      from_port   = 22
+      to_port     = 22
+      protocol    = "tcp"
       cidr_blocks = "0.0.0.0/0"
     },
   ]
 
   egress_with_cidr_blocks = [
     {
-      from_port = 80
-      to_port   = 80
-      protocol  = "tcp"
+      from_port   = 80
+      to_port     = 80
+      protocol    = "tcp"
       cidr_blocks = "0.0.0.0/0"
     },
     {
-      from_port = 443
-      to_port   = 443
-      protocol  = "tcp"
+      from_port   = 443
+      to_port     = 443
+      protocol    = "tcp"
       cidr_blocks = "0.0.0.0/0"
     },
   ]

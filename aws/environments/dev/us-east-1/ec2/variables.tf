@@ -31,3 +31,9 @@ variable "state_bucket" {
   type        = string
   default     = "terraform-state-7ac65cd8-518c-40db-99a7-8948133592ca"
 }
+
+variable "zone" {
+  description = "ex. 'example' if you own example.com"
+  type        = string
+  default     = "scottcressi"
+}
