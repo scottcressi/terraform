@@ -28,17 +28,24 @@ module "vote_service_sg" {
 
   ingress_with_cidr_blocks = [
     {
-      rule        = "ssh-tcp"
+      from_port = 22
+      to_port   = 22
+      protocol  = "tcp"
       cidr_blocks = "0.0.0.0/0"
     },
   ]
 
   egress_with_cidr_blocks = [
     {
-      from_port = 1
-      to_port   = 65535
+      from_port = 80
+      to_port   = 80
       protocol  = "tcp"
-      #description = "Service name"
+      cidr_blocks = "0.0.0.0/0"
+    },
+    {
+      from_port = 443
+      to_port   = 443
+      protocol  = "tcp"
       cidr_blocks = "0.0.0.0/0"
     },
   ]
