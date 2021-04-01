@@ -15,7 +15,7 @@ terraform {
       version = "3.30.0"
     }
     helm = {
-      version = "2.0.2"
+      version = "2.1.2"
     }
     kubernetes = {
       version = "2.0.2"
