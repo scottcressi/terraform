@@ -1,5 +1,5 @@
 terraform {
-  required_version = "0.14.8"
+  required_version = "0.14.9"
 
   #backend "pg" {}
 
@@ -15,7 +15,7 @@ terraform {
       version = "3.30.0"
     }
     helm = {
-      version = "2.1.2"
+      version = "2.1.0"
     }
     kubernetes = {
       version = "2.0.2"
