@@ -28,8 +28,8 @@ module "vpc" {
     Environment = var.environment
   }
 
-  providers = {
-    aws = us-east-1
-  }
+#  providers = {
+#    aws = us-east-1
+#  }
 
 }
