@@ -1,3 +1,2 @@
-awscli
-azure-cli
-boto3
+awscli==1.19.53
+#azure-cli==2.22.0
