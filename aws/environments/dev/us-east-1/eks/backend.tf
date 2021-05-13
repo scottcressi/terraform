@@ -1,5 +1,5 @@
 terraform {
-  required_version = "0.15.0"
+  required_version = "0.15.3"
 
   #backend "pg" {}
 
@@ -12,7 +12,7 @@ terraform {
 
   required_providers {
     aws = {
-      version = "3.30.0"
+      version = "3.39.0"
     }
     kubernetes = {
       version = "2.0.2"
