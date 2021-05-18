@@ -1,7 +1,7 @@
 module "my-cluster" {
 
   source          = "terraform-aws-modules/eks/aws"
-  version         = "15.2.0"
+  version         = "16.0.0"
   cluster_name    = local.cluster_name
   cluster_version = "1.19"
   subnets         = data.terraform_remote_state.network.outputs.private_subnets
