@@ -1,7 +1,7 @@
 *tfstate*
 .terraform
 .terraform.lock.hcl
-*.dot
+*.svg
 audit.log
 crash.log
 kubeconfig_*
