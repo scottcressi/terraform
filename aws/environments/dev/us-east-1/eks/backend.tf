@@ -12,7 +12,7 @@ terraform {
 
   required_providers {
     aws = {
-      version = "3.39.0"
+      version = "3.42.0"
     }
     kubernetes = {
       version = "2.0.2"
