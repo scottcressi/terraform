@@ -8,10 +8,18 @@ module "ec2_with_t3_unlimited" {
   cpu_credits                 = "unlimited"
   subnet_id                   = data.terraform_remote_state.network.outputs.public_subnets[0]
   vpc_security_group_ids      = [module.vote_service_sg.this_security_group_id]
-  associate_public_ip_address = true
   disable_api_termination     = false
   user_data_base64            = base64encode(file("user_data.sh"))
   key_name                    = aws_key_pair.mykeypair.key_name
+}
+
+resource "aws_eip" "example" {
+  vpc = true
+}
+
+resource "aws_eip_association" "eip_assoc" {
+  instance_id   = module.ec2_with_t3_unlimited.id[0]
+  allocation_id = aws_eip.example.id
 }
 
 resource "aws_key_pair" "mykeypair" {
