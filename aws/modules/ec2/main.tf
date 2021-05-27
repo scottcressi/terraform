@@ -1,16 +1,16 @@
 module "ec2_with_t3_unlimited" {
-  source                      = "terraform-aws-modules/ec2-instance/aws"
-  version                     = "2.19.0"
-  instance_count              = 1
-  name                        = "example-t3-unlimited"
-  ami                         = "ami-00e87074e52e6c9f9" # centos
-  instance_type               = "t3.micro"
-  cpu_credits                 = "unlimited"
-  subnet_id                   = data.terraform_remote_state.network.outputs.public_subnets[0]
-  vpc_security_group_ids      = [module.vote_service_sg.this_security_group_id]
-  disable_api_termination     = false
-  user_data_base64            = base64encode(file("user_data.sh"))
-  key_name                    = aws_key_pair.mykeypair.key_name
+  source                  = "terraform-aws-modules/ec2-instance/aws"
+  version                 = "2.19.0"
+  instance_count          = 1
+  name                    = "example-t3-unlimited"
+  ami                     = "ami-00e87074e52e6c9f9" # centos
+  instance_type           = "t3.micro"
+  cpu_credits             = "unlimited"
+  subnet_id               = data.terraform_remote_state.network.outputs.public_subnets[0]
+  vpc_security_group_ids  = [module.vote_service_sg.this_security_group_id]
+  disable_api_termination = false
+  user_data_base64        = base64encode(file("user_data.sh"))
+  key_name                = aws_key_pair.mykeypair.key_name
 }
 
 resource "aws_eip" "example" {
