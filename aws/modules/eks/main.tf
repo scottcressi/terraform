@@ -3,7 +3,7 @@ module "my-cluster" {
   source          = "terraform-aws-modules/eks/aws"
   version         = "17.0.3"
   cluster_name    = local.cluster_name
-  cluster_version = "1.19"
+  cluster_version = "1.20"
   subnets         = data.terraform_remote_state.network.outputs.private_subnets
   vpc_id          = data.terraform_remote_state.network.outputs.vpc_id
 
