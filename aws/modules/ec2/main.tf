@@ -3,7 +3,7 @@ module "ec2_with_t3_unlimited" {
   version                 = "2.19.0"
   instance_count          = 1
   name                    = "example-t3-unlimited"
-  ami                     = "ami-00e87074e52e6c9f9" # centos
+  ami                     = "ami-0de4dcbef8f2fd507" # ubuntu 21.04
   instance_type           = "t3.micro"
   cpu_credits             = "unlimited"
   subnet_id               = data.terraform_remote_state.network.outputs.public_subnets[0]

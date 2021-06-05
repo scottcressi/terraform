@@ -1,3 +1,4 @@
 #!/bin/bash
 echo foo > /tmp/foo.txt
-sudo yum install -y nmap-ncat
+apt-get update
+apt-get install -y netcat
