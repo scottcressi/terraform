@@ -11,7 +11,6 @@ if [ $# -eq 0 ] ; then
     options:
 
     setup_vault
-    setup_postgres
     setup_prereqs
     setup_charts
     setup_statebucket
@@ -40,21 +39,6 @@ setup_vault(){
 
     run: export VAULT_TOKEN=root
     """
-}
-
-setup_postgres(){
-    # create vault and postgres backends
-    POSTGRES_ADDRESS=localhost
-    POSTGRES_USER=terraform
-    POSTGRES_PASSWORD=terraform
-    export POSTGRES_PASSWORD=$POSTGRES_PASSWORD
-    docker-compose up -d postgres
-
-    # terraform init backend
-    cd "$DIR"/kubernetes || exit
-    terraform init -backend-config="conn_str=postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@$POSTGRES_ADDRESS/terraform_backend?sslmode=disable" || echo "Done !"
-    terraform workspace new default || if [ $? -eq 0 ]; then echo "Done !"; else echo "Workspace \"default\" was not created"; fi
-    terraform init
 }
 
 setup_prereqs(){
