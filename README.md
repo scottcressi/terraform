@@ -36,6 +36,5 @@ add packetkbeat
 add auditbeat
 add heartbeat
 add grafana iac
-add vault transit token
 create thanos bucket dynamically
 ```

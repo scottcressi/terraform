@@ -7,7 +7,7 @@ module "ec2_with_t3_unlimited" {
   instance_type           = "t3.micro"
   cpu_credits             = "unlimited"
   subnet_id               = data.terraform_remote_state.network.outputs.public_subnets[0]
-  vpc_security_group_ids  = [module.vote_service_sg.this_security_group_id]
+  vpc_security_group_ids  = [module.vote_service_sg.security_group_id]
   disable_api_termination = false
   user_data_base64        = base64encode(file("user_data.sh"))
   key_name                = aws_key_pair.mykeypair.key_name
@@ -27,11 +27,13 @@ resource "aws_key_pair" "mykeypair" {
   public_key = file(module.ssh_key_pair.public_key_filename)
 }
 
-resource "vault_generic_secret" "some_ssh_key" {
-  path = "secret/ssh_keys/some_ssh_key"
-  data_json = jsonencode({
-    "key" : module.ssh_key_pair.private_key
-  })
+resource "aws_secretsmanager_secret_version" "example" {
+  secret_id     = aws_secretsmanager_secret.some_ssh_key.id
+  secret_string = module.ssh_key_pair.private_key
+}
+
+resource "aws_secretsmanager_secret" "some_ssh_key" {
+  name = "secret/ssh_keys/some_ssh_key"
 }
 
 module "ssh_key_pair" {

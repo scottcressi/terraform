@@ -10,7 +10,6 @@ if [ $# -eq 0 ] ; then
     echo """
     options:
 
-    setup_vault
     setup_prereqs
     setup_charts
     setup_statebucket
@@ -22,23 +21,6 @@ fi
 setup_statebucket(){
     UUID=$(cat /proc/sys/kernel/random/uuid)
     aws s3 mb s3://terraform-state-"$UUID"
-}
-
-setup_vault(){
-    if ! pgrep vault > /dev/null ; then
-    docker-compose up -d vault
-    fi
-    sleep 2
-    docker exec -ti vault sh -c "export VAULT_TOKEN=root \
-    ; vault kv put -address http://127.0.0.1:8200 secret/helm/kubewatch slack_token=foo \
-    ; vault kv put -address http://127.0.0.1:8200 secret/helm/prometheus slack_token=foo \
-    "
-    echo """
-    set the following in your /etc/hosts:
-    127.0.0.1 vault-k8s.ENV.ZONE.com
-
-    run: export VAULT_TOKEN=root
-    """
 }
 
 setup_prereqs(){
@@ -66,13 +48,6 @@ execute_terraform(){
     echo env: "$ENV"
     echo zone: "$ZONE"
     echo
-
-    vault=vault-k8s."$ENV"."$ZONE".com
-    status=$(nc -z "$vault" 8200 ; echo $?)
-    if [ "$status" != "0" ] ; then
-        echo "$vault" cannot be found
-        exit 1
-    fi
 
     loop(){
     for i in "${array[@]}" ; do
