@@ -12,5 +12,6 @@ data "terraform_remote_state" "network" {
     bucket         = var.state_bucket
     key            = var.state_key
     region         = var.region
+    profile = "personal"
   }
 }

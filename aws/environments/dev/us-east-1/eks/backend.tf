@@ -8,6 +8,7 @@ terraform {
     key    = "dev/us-east-1/eks/terraform.tfstate"
     region = "us-east-1"
     #dynamodb_table = "terraform_state"
+    profile = "personal"
   }
 
   required_providers {
@@ -31,4 +32,14 @@ terraform {
     }
   }
 
+}
+
+provider "aws" {
+  region = var.region
+  profile = "personal"
+  default_tags {
+    tags = {
+      environment = var.environment
+    }
+  }
 }
