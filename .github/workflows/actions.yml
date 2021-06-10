@@ -28,19 +28,19 @@ jobs:
 
       - name: terraform init
         id: init
-        working-directory: ./aws/environments/dev/global/network
+        working-directory: providers/aws/environments/dev/global/network
         run: terraform init
         continue-on-error: false
 
       - name: terraform validate
         id: validate
-        working-directory: ./aws/environments/dev/global/network
+        working-directory: providers/aws/environments/dev/global/network
         run: terraform validate
         continue-on-error: false
 
       - name: terraform plan
         id: plan
-        working-directory: ./aws/environments/dev/global/network
+        working-directory: providers/aws/environments/dev/global/network
         run: terraform plan
         continue-on-error: false
 
