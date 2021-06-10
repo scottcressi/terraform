@@ -1,15 +1,9 @@
-data "vault_generic_secret" "kubewatch-slack-token" {
-  path = "secret/helm/kubewatch"
-}
-
-data "vault_generic_secret" "alertmanager-slack-token" {
-  path = "secret/helm/prometheus"
-}
-
-data "vault_generic_secret" "thanos-access-key" {
-  path = "secret/helm/prometheus"
-}
-
-data "vault_generic_secret" "thanos-secret-key" {
-  path = "secret/helm/prometheus"
+data "terraform_remote_state" "aws_eks_cluster_auth" {
+  backend = "s3"
+  config = {
+    bucket         = var.state_bucket
+    key            = var.state_key
+    region         = var.region
+    profile = "personal"
+  }
 }

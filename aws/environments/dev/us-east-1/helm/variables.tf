@@ -25,3 +25,15 @@ variable "zone" {
   type        = string
   default     = "scottcressi"
 }
+
+variable "state_key" {
+  description = "ex. us-east-1"
+  type        = string
+  default     = "dev/us-east-1/network/terraform.tfstate"
+}
+
+variable "state_bucket" {
+  description = "ex. us-east-1"
+  type        = string
+  default     = "terraform-state-7ac65cd8-518c-40db-99a7-8948133592ca"
+}

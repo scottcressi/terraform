@@ -1,5 +1,5 @@
 terraform {
-  required_version = "0.15.0"
+  required_version = ">= 0.15.0"
 
   #backend "pg" {}
 
@@ -8,6 +8,7 @@ terraform {
     key    = "dev/us-east-1/helm/terraform.tfstate"
     region = "us-east-1"
     #dynamodb_table = "terraform_state"
+    profile = "personal"
   }
 
   required_providers {
@@ -15,10 +16,10 @@ terraform {
       version = "3.30.0"
     }
     helm = {
-      version = "2.1.1"
+      version = "2.1.2"
     }
     kubernetes = {
-      version = "2.0.2"
+      version = "2.3.1"
     }
     random = {
       version = "3.0.1"
@@ -34,4 +35,10 @@ terraform {
     }
   }
 
+}
+
+provider "helm" {
+  kubernetes {
+    config_path = "../eks/kubeconfig_my-cluster"
+  }
 }
