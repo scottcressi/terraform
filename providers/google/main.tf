@@ -1,6 +1,6 @@
 module "vpc" {
   source  = "terraform-google-modules/network/google"
-  version = "~> 3.0.1"
+  version = "~> 3.3.0"
 
   project_id   = var.project
   network_name = "vpc-01"
@@ -63,7 +63,7 @@ module "vpc" {
 
 module "gke" {
   source                     = "terraform-google-modules/kubernetes-engine/google"
-  version                    = "13.0.0"
+  version                    = "15.0.0"
   project_id                 = var.project
   name                       = "gke-test-1"
   region                     = "us-west1"
