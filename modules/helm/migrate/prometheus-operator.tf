@@ -110,7 +110,7 @@ alertmanager:
   config:
     global:
       resolve_timeout: 5m
-      slack_api_url: ${data.vault_generic_secret.alertmanager-slack-token.data["slack_token"]}
+      slack_api_url: SOMESECRET
 
     route:
       receiver: "null"
@@ -147,8 +147,8 @@ resource "helm_release" "thanos" {
 objstoreConfig:
   type: S3
   config:
-    access_key: ${data.vault_generic_secret.thanos-access-key.data["thanos_access_key"]}
-    secret_key: ${data.vault_generic_secret.thanos-access-key.data["thanos_secret_key"]}
+    access_key: SOMESECRET
+    secret_key: SOMESECRET
     endpoint: s3.us-east-1.amazonaws.com
     bucket: thanos-374012539393
     insecure: false

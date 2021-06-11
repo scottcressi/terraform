@@ -12,33 +12,33 @@ terraform {
   }
 
   required_providers {
-    aws = {
-      version = "3.30.0"
-    }
+    #aws = {
+    #  version = "3.30.0"
+    #}
     helm = {
-      version = "2.1.2"
-    }
-    kubernetes = {
-      version = "2.3.1"
-    }
-    random = {
-      version = "3.0.1"
-    }
-    local = {
-      version = "2.0.0"
-    }
-    null = {
-      version = "3.0.0"
-    }
-    template = {
       version = "2.2.0"
     }
+    #kubernetes = {
+    #  version = "2.3.1"
+    #}
+    #random = {
+    #  version = "3.0.1"
+    #}
+    #local = {
+    #  version = "2.0.0"
+    #}
+    #null = {
+    #  version = "3.0.0"
+    #}
+    #template = {
+    #  version = "2.2.0"
+    #}
   }
 
 }
 
 provider "helm" {
   kubernetes {
-    config_path = "../eks/kubeconfig_my-cluster"
+    config_path = "~/.kube/config"
   }
 }

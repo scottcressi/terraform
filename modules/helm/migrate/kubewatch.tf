@@ -28,7 +28,7 @@ resourcesToWatch:
 replicaCount: 2
 slack:
   channel: "#kubewatch-${var.environment}"
-  token: ${data.vault_generic_secret.kubewatch-slack-token.data["slack_token"]}
+  token: SOMESECRET
 EOF
   ]
 
