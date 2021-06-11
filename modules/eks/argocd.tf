@@ -22,3 +22,10 @@ EOF
   ]
 
 }
+
+provider "helm" {
+  kubernetes {
+#    config_path = "../eks/kubeconfig_my-cluster"
+    config_path = "~/.kube/config"
+  }
+}
