@@ -10,7 +10,6 @@ if [ $# -eq 0 ] ; then
     echo """
     options:
 
-    setup_prereqs
     setup_charts
     setup_statebucket
     execute_terraform   ex. bash setup.sh execute_terraform dev somehostedzone
@@ -21,10 +20,6 @@ fi
 setup_statebucket(){
     UUID=$(cat /proc/sys/kernel/random/uuid)
     aws s3 mb s3://terraform-state-"$UUID"
-}
-
-setup_prereqs(){
-    pip install -r requirements.txt
 }
 
 setup_charts(){
