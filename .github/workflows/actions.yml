@@ -26,26 +26,11 @@ jobs:
         with:
           terraform_version: 1.0.0
 
-      - name: terraform init
-        id: init
-        working-directory: providers/aws/personalaccount/dev/network
-        run: terraform init
-        continue-on-error: false
-
-      - name: terraform validate
-        id: validate
-        working-directory: providers/aws/personalaccount/dev/network
-        run: terraform validate
-        continue-on-error: false
-
-      - name: terraform plan
-        id: plan
-        working-directory: providers/aws/personalaccount/dev/network
-        run: terraform plan
-        continue-on-error: false
-
-        #- name: terraform apply
-        #  id: apply
-        #  working-directory: ./aws/environments/dev/global/network
-        #  run: terraform apply -auto-approve
-        #  continue-on-error: false
+      - name: terraform run
+        run: |
+          for i in $(find providers/ | grep backend.tf | grep aws | grep network | sed 's/\/backend.tf//g') ; do
+            cd $i
+            terraform init
+            terraform validate
+            terraform plan
+          done
